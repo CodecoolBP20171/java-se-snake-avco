@@ -37,6 +37,12 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
         if (isOutOfBounds()) {
             destroy();
         }
+
+        // Advanced enemy skill - following the player - SnakeHead object is needed.
+/*        double direction = Math.toDegrees(Math.atan2( snake.getY() - getY(), snake.getX() - getX()));
+        direction += 90;
+        heading = Utils.directionToVector(direction, 1);*/
+
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
     }
