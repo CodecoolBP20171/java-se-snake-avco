@@ -11,6 +11,8 @@ import javafx.scene.layout.Pane;
 public class Laser extends GameEntity implements Animatable {
 
     private static final float speed = 3;
+    private static final long reloadTime = 400;
+    private static long lastShotTime;
     private Point2D heading;
 
     public Laser(Pane pane, double x, double y, double dir) {
@@ -22,6 +24,7 @@ public class Laser extends GameEntity implements Animatable {
         setX(x);
         setY(y);
         setTranslateX(15);
+        lastShotTime = System.currentTimeMillis();
     }
 
     public void step() {
@@ -41,5 +44,10 @@ public class Laser extends GameEntity implements Animatable {
         }
         setX(getX() + heading.getX() * speed);
         setY(getY() + heading.getY() * speed);
+    }
+
+    public static boolean isReloaded() {
+        long timeDelta = System.currentTimeMillis() - Laser.lastShotTime;
+        return timeDelta > reloadTime;
     }
 }

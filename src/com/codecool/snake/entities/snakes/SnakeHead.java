@@ -43,7 +43,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         setY(getY() + heading.getY());
 
         // laser shot
-        if (Globals.spaceKeyDown) {
+        if (Globals.spaceKeyDown && Laser.isReloaded()) {
             new Laser(pane, getX(), getY(), dir);
             this.toFront();
         }
