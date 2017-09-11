@@ -27,14 +27,16 @@ public class Game extends Pane {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = true; break;
-                case RIGHT: Globals.rightKeyDown  = true; break;
+                case RIGHT: Globals.rightKeyDown = true; break;
+                case SPACE: Globals.spaceKeyDown = true; break;
             }
         });
 
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = false; break;
-                case RIGHT: Globals.rightKeyDown  = false; break;
+                case RIGHT: Globals.rightKeyDown = false; break;
+                case SPACE: Globals.spaceKeyDown = false; break;
             }
         });
         Globals.gameLoop = new GameLoop();
