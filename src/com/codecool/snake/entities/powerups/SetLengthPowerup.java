@@ -13,12 +13,13 @@ public class SetLengthPowerup extends Powerup {
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        snakeHead.addPart(2);
+        int numberOfNewParts = 4;
+        snakeHead.addPart(numberOfNewParts);
         destroy();
     }
 
     @Override
     public String getMessage() {
-        return super.getMessage() + "add new parts";
+        return "You have new parts!";
     }
 }

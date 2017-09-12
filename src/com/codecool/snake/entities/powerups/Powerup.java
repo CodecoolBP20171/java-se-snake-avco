@@ -23,7 +23,5 @@ public abstract class Powerup extends GameEntity implements Interactable {
     public abstract void apply(SnakeHead snakeHead);
 
     @Override
-    public String getMessage() {
-        return "Got power-up: ";
-    }
+    public abstract String getMessage();
 }

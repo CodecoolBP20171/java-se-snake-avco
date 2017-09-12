@@ -22,6 +22,6 @@ public class SetSpeedPowerup extends Powerup {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + "set speed up";
+        return "Speed up! Current speed is: " + SnakeHead.getSpeed();
     }
 }

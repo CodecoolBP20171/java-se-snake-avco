@@ -19,6 +19,6 @@ public class AddHealthPowerup extends Powerup{
 
     @Override
     public String getMessage() {
-        return super.getMessage() + "add 10 extra health";
+        return "Health package! Current health is: " + SnakeHead.getHealth();
     }
 }
