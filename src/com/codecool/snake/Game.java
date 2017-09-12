@@ -11,21 +11,17 @@ public class Game extends Pane {
 
     public Game() {
         new SnakeHead(this, 500, 500);
+        int numberOfPowerups = 5;
 
         new SimpleEnemy(this);
         new SimpleEnemy(this);
         new SimpleEnemy(this);
         new SimpleEnemy(this);
 
-        new SetLengthPowerup(this);
-        new SetLengthPowerup(this);
-        new SetLengthPowerup(this);
-        new SetLengthPowerup(this);
-
-        new SetSpeedPowerup(this);
-        new SetSpeedPowerup(this);
-        new SetSpeedPowerup(this);
-        new SetSpeedPowerup(this);
+        for (int i = 0; i < numberOfPowerups ; i++) {
+            new SetLengthPowerup(this);
+            new SetSpeedPowerup(this);
+        }
     }
 
     public void start() {
