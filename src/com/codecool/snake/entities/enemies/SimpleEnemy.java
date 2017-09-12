@@ -14,20 +14,36 @@ import java.util.Random;
 // a simple enemy TODO make better ones.
 public class SimpleEnemy extends GameEntity implements Animatable, Interactable {
 
-    private Point2D heading;
-    private static final int damage = 10;
+    protected Point2D heading;
+    protected static final int damage = 10;
+    protected double direction;
+    protected Random rnd = new Random();
+    protected SnakeHead snake;
+    protected int charSize;
+    protected int speed;
 
-    public SimpleEnemy(Pane pane) {
+
+    public SimpleEnemy(Pane pane, SnakeHead snake) {
         super(pane);
-
-        setImage(Globals.simpleEnemy);
+        setImage(Globals.SimpleEnemies.get(rnd.nextInt(Globals.SimpleEnemies.size())));
         pane.getChildren().add(this);
-        int speed = 1;
-        Random rnd = new Random();
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
+        this.snake = snake;
+        this.setValidPosition();
+    }
 
-        double direction = rnd.nextDouble() * 360;
+    public void setValidPosition() {
+        speed = 1;
+        charSize = 30;
+        while (true) {
+            double xPos = (double) rnd.nextInt((int) (Globals.WINDOW_WIDTH - charSize) - charSize + 1) + charSize;
+            double yPos = (double) rnd.nextInt((int) (Globals.WINDOW_HEIGHT - charSize) - charSize + 1) + charSize;
+            setX(xPos);
+            setY(yPos);
+            if (!getBoundsInParent().intersects(snake.getBoundsInParent())) {
+                break;
+            }
+        }
+        direction = rnd.nextDouble() * 360;
         setRotate(direction);
         heading = Utils.directionToVector(direction, speed);
     }
@@ -35,7 +51,9 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     @Override
     public void step() {
         if (isOutOfBounds()) {
-            destroy();
+            direction += rnd.nextInt(41) + 160;
+            setRotate(direction);
+            heading = Utils.directionToVector(direction, 1);
         }
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
@@ -45,6 +63,7 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
+        new SimpleEnemy(pane, snake);
     }
 
     @Override
