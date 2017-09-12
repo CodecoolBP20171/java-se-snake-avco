@@ -23,6 +23,7 @@ public class Globals {
     public static Image simpleEnemy3 = new Image("simple_enemy_3.png");
     public static Image powerupBerry = new Image("powerup_berry.png");
     public static Image advancedEnemy = new Image("missile.png");
+    public static Image circlingENemy = new Image("spider.png");
     public static List<Image> SimpleEnemies = new ArrayList();
 
     //.. put here the other images you want to use

@@ -5,20 +5,18 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.layout.Pane;
 
-public class AdvancedEnemy extends SimpleEnemy {
+public class NotSoSimpleEnemy extends SimpleEnemy {
 
-    public AdvancedEnemy(Pane pane, SnakeHead snake) {
-        super(pane, snake);
-        setImage(Globals.advancedEnemy);
+    public NotSoSimpleEnemy(Pane pane, SnakeHead sneak) {
+        super(pane, sneak);
+        setImage(Globals.circlingENemy);
     }
 
     @Override
     public void step() {
-        direction = Math.toDegrees(Math.atan2(snake.getY() - getY(), snake.getX() - getX()));
-        direction += 90;
+        direction += 0.6;
         setRotate(direction);
-        javafx.geometry.Point2D heading = Utils.directionToVector(direction, speed);
-
+        heading = Utils.directionToVector(direction, speed);
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
     }
@@ -27,6 +25,6 @@ public class AdvancedEnemy extends SimpleEnemy {
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
-        new AdvancedEnemy(pane, snake);
+        new NotSoSimpleEnemy(pane, snake);
     }
 }

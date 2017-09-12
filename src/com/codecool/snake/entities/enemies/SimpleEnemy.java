@@ -14,22 +14,35 @@ import java.util.Random;
 // a simple enemy TODO make better ones.
 public class SimpleEnemy extends GameEntity implements Animatable, Interactable {
 
-    private Point2D heading;
-    private static final int damage = 10;
-    private double direction;
-    private Random rnd = new Random();
+    protected Point2D heading;
+    protected static final int damage = 10;
+    protected double direction;
+    protected Random rnd = new Random();
+    protected SnakeHead snake;
+    protected int charSize;
+    protected int speed;
 
-    public SimpleEnemy(Pane pane) {
+
+    public SimpleEnemy(Pane pane, SnakeHead snake) {
         super(pane);
-
-
         setImage(Globals.SimpleEnemies.get(rnd.nextInt(Globals.SimpleEnemies.size())));
         pane.getChildren().add(this);
-        int speed = 1;
-        int charSize = 30;
-        setX((double) rnd.nextInt((int) (Globals.WINDOW_WIDTH - charSize) - charSize + 1) + charSize);
-        setY((double) rnd.nextInt((int) (Globals.WINDOW_HEIGHT - charSize) - charSize + 1) + charSize);
+        this.snake = snake;
+        this.setValidPosition();
+    }
 
+    public void setValidPosition() {
+        speed = 1;
+        charSize = 30;
+        while (true) {
+            double xPos = (double) rnd.nextInt((int) (Globals.WINDOW_WIDTH - charSize) - charSize + 1) + charSize;
+            double yPos = (double) rnd.nextInt((int) (Globals.WINDOW_HEIGHT - charSize) - charSize + 1) + charSize;
+            setX(xPos);
+            setY(yPos);
+            if (!getBoundsInParent().intersects(snake.getBoundsInParent())) {
+                break;
+            }
+        }
         direction = rnd.nextDouble() * 360;
         setRotate(direction);
         heading = Utils.directionToVector(direction, speed);
@@ -50,7 +63,7 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
-        new SimpleEnemy(pane);
+        new SimpleEnemy(pane, snake);
     }
 
     @Override
