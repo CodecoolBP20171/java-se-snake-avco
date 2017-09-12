@@ -11,13 +11,14 @@ import java.util.List;
 // class for holding all static stuff
 public class Globals {
 
-    public static final double WINDOW_WIDTH = 1000;
-    public static final double WINDOW_HEIGHT = 700;
+    public static final double WINDOW_WIDTH = 600;
+    public static final double WINDOW_HEIGHT = 600;
 
     public static Image snakeHead = new Image("snake_head.png");
     public static Image snakeBody = new Image("snake_body.png");
     public static Image simpleEnemy = new Image("simple_enemy.png");
     public static Image powerupBerry = new Image("powerup_berry.png");
+    public static Image advancedEnemy = new Image("missile.png");
     //.. put here the other images you want to use
 
     public static boolean leftKeyDown;

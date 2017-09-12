@@ -16,7 +16,7 @@ public class AdvancedEnemy extends GameEntity implements Animatable, Interactabl
     public AdvancedEnemy(Pane pane, SnakeHead snake) {
         super(pane);
         this.snake = snake;
-        setImage(Globals.simpleEnemy);
+        setImage(Globals.advancedEnemy);
         pane.getChildren().add(this);
     }
 
@@ -28,6 +28,7 @@ public class AdvancedEnemy extends GameEntity implements Animatable, Interactabl
         // Advanced enemy skill - following the player - SnakeHead object is needed.
         double direction = Math.toDegrees(Math.atan2(snake.getY() - getY(), snake.getX() - getX()));
         direction += 90;
+        setRotate(direction);
         javafx.geometry.Point2D heading = Utils.directionToVector(direction, 1);
 
         setX(getX() + heading.getX());
