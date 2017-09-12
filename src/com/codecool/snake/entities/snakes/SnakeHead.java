@@ -14,8 +14,8 @@ import javafx.scene.layout.Pane;
 
 public class SnakeHead extends GameEntity implements Animatable {
 
-    private static final float speed = 2;
-    private static final float turnRate = 2;
+    private static float speed = 2;
+    private static float turnRate = 2;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
     private long lastShotTime;
@@ -36,6 +36,26 @@ public class SnakeHead extends GameEntity implements Animatable {
         initEventHandlers(pane, leftCode, rightCode, shootCode);
 
         addPart(4);
+    }
+
+    public static float getTurnRate() {
+        return turnRate;
+    }
+
+    public static void setTurnRate(float turnRate) {
+        SnakeHead.turnRate = turnRate;
+    }
+
+    public static void setSpeed(float speed) {
+        SnakeHead.speed = speed;
+    }
+
+    public static float getSpeed() {
+        return speed;
+    }
+
+    public static int getHealth() {
+        return health;
     }
 
     public void step() {

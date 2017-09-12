@@ -20,11 +20,14 @@ public class Globals {
     public static Image simpleEnemy1 = new Image("simple_enemy_1.png");
     public static Image simpleEnemy2 = new Image("simple_enemy_2.png");
     public static Image simpleEnemy3 = new Image("simple_enemy_3.png");
-    public static Image powerupBerry = new Image("powerup_berry.png");
     public static Image laser = new Image("laser.png");
     public static Image advancedEnemy = new Image("missile.png");
     public static Image circlingENemy = new Image("spider.png");
     public static List<Image> SimpleEnemies = new ArrayList();
+
+    public static Image powerupSetLength = new Image("powerup_length.png");
+    public static Image powerupAddHealth = new Image("powerup_health.png");
+    public static Image powerupSetTurnRate = new Image("powerup_turn_rate.png");
 
     //.. put here the other images you want to use
 
