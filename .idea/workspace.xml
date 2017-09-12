@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a9c5540-742a-45cf-9769-1e987f84852b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/codecool/snake/Game.java" afterPath="$PROJECT_DIR$/src/com/codecool/snake/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/codecool/snake/Globals.java" afterPath="$PROJECT_DIR$/src/com/codecool/snake/Globals.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/codecool/snake/Main.java" afterPath="$PROJECT_DIR$/src/com/codecool/snake/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/codecool/snake/entities/GameEntity.java" afterPath="$PROJECT_DIR$/src/com/codecool/snake/entities/GameEntity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/AdvancedEnemy.java" afterPath="$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/AdvancedEnemy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/SimpleEnemy.java" afterPath="$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/SimpleEnemy.java" />
     </list>
@@ -20,11 +17,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SimpleEnemy.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimpleEnemy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/SimpleEnemy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+            <state relative-caret-position="54">
+              <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SnakeHead.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/snakes/SnakeHead.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -33,21 +40,9 @@
       <file leaf-file-name="GameEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/GameEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-127">
-              <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+            <state relative-caret-position="35">
+              <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdvancedEnemy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/AdvancedEnemy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -55,18 +50,18 @@
       <file leaf-file-name="Globals.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/Globals.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+            <state relative-caret-position="131">
+              <caret line="20" column="4" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -75,8 +70,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+            <state relative-caret-position="180">
+              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -114,10 +109,10 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/codecool/snake/entities/snakes/SnakeHead.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/snake/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/AdvancedEnemy.java" />
-        <option value="$PROJECT_DIR$/src/com/codecool/snake/Globals.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/snake/entities/GameEntity.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/AdvancedEnemy.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/SimpleEnemy.java" />
+        <option value="$PROJECT_DIR$/src/com/codecool/snake/Globals.java" />
         <option value="$PROJECT_DIR$/src/com/codecool/snake/Game.java" />
       </list>
     </option>
@@ -342,12 +337,12 @@
       <option name="presentableId" value="Default" />
       <updated>1505162128213</updated>
       <workItem from="1505162130292" duration="250000" />
-      <workItem from="1505200004866" duration="8357000" />
+      <workItem from="1505200004866" duration="9460000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8607000" />
+    <option name="totallyTimeSpent" value="9710000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="186" y="265" width="1309" height="780" extended-state="6" />
@@ -433,20 +428,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/snake_body.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/simple_enemy.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -454,32 +436,6 @@
     <entry file="file://$PROJECT_DIR$/resources/snake_head.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/AdvancedEnemy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/snakes/SnakeHead.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
-          <caret line="55" column="18" lean-forward="false" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/Globals.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/scene/image/ImageView.java">
@@ -509,26 +465,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/AdvancedEnemy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/GameEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        <state relative-caret-position="35">
+          <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/simple_enemy _1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/simple_enemy.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/SimpleEnemy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/snakes/SnakeHead.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/Globals.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="20" column="4" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/codecool/snake/entities/enemies/SimpleEnemy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+        <state relative-caret-position="270">
+          <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
           <folding />
         </state>
       </provider>

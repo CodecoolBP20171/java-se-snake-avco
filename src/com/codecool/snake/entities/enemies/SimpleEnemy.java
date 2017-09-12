@@ -22,7 +22,8 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     public SimpleEnemy(Pane pane) {
         super(pane);
 
-        setImage(Globals.simpleEnemy);
+
+        setImage(Globals.SimpleEnemies.get(rnd.nextInt(Globals.SimpleEnemies.size())));
         pane.getChildren().add(this);
         int speed = 1;
         setX((double) rnd.nextInt((int) (Globals.WINDOW_WIDTH - 30) - 30 + 1) + 30);

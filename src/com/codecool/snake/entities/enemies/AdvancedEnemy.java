@@ -39,6 +39,7 @@ public class AdvancedEnemy extends GameEntity implements Animatable, Interactabl
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
+        new AdvancedEnemy(pane, snake);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,8 +18,13 @@ public class Globals {
     public static Image snakeHead = new Image("snake_head.png");
     public static Image snakeBody = new Image("snake_body.png");
     public static Image simpleEnemy = new Image("simple_enemy.png");
+    public static Image simpleEnemy1 = new Image("simple_enemy_1.png");
+    public static Image simpleEnemy2 = new Image("simple_enemy_2.png");
+    public static Image simpleEnemy3 = new Image("simple_enemy_3.png");
     public static Image powerupBerry = new Image("powerup_berry.png");
     public static Image advancedEnemy = new Image("missile.png");
+    public static List<Image> SimpleEnemies = new ArrayList();
+
     //.. put here the other images you want to use
 
     public static boolean leftKeyDown;

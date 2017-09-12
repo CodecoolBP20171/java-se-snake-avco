@@ -12,6 +12,11 @@ public class Game extends Pane {
     public Game() {
         SnakeHead snake = new SnakeHead(this, 500, 500);
 
+        Globals.SimpleEnemies.add(Globals.simpleEnemy);
+        Globals.SimpleEnemies.add(Globals.simpleEnemy1);
+        Globals.SimpleEnemies.add(Globals.simpleEnemy2);
+        Globals.SimpleEnemies.add(Globals.simpleEnemy3);
+
         new SimpleEnemy(this);
         new SimpleEnemy(this);
         new SimpleEnemy(this);
