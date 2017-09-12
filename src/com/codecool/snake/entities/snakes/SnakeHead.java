@@ -18,53 +18,24 @@ public class SnakeHead extends GameEntity implements Animatable {
     private static final float turnRate = 2;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
+    private long lastShotTime;
+    private long reloadTime = 300;
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
+    private boolean shoot = false;
 
-    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode) {
+
+    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
         super(pane);
-        initEventHandlers(pane, leftCode, rightCode);
+        tail = this;
+        health = 100;
         setX(xc);
         setY(yc);
-        health = 100;
-        tail = this;
         setImage(Globals.snakeHead);
         pane.getChildren().add(this);
+        initEventHandlers(pane, leftCode, rightCode, shootCode);
 
         addPart(4);
-    }
-
-    private void initEventHandlers(Pane pane, KeyCode leftCode, KeyCode rightCode) {
-        //EventHandler has to be chained to each other due to only one can be set
-        EventHandler oldKeyPressedHandler = pane.getScene().getOnKeyPressed();
-        pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (oldKeyPressedHandler != null) {
-                    oldKeyPressedHandler.handle(event);
-                }
-                if (leftCode == event.getCode()) {
-                    leftKeyDown = true;
-
-                } else if (rightCode == event.getCode()) {
-                    rightKeyDown = true;
-                }
-            }
-        });
-
-        EventHandler keyReleasedEventHandler = pane.getScene().getOnKeyReleased();
-        pane.getScene().setOnKeyReleased(event -> {
-            if (keyReleasedEventHandler != null) {
-                keyReleasedEventHandler.handle(event);
-            }
-            if (leftCode == event.getCode()) {
-                leftKeyDown = false;
-
-            } else if (rightCode == event.getCode()) {
-                rightKeyDown = false;
-
-            }
-        });
     }
 
     public void step() {
@@ -80,28 +51,24 @@ public class SnakeHead extends GameEntity implements Animatable {
         Point2D heading = Utils.directionToVector(dir, speed);
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
+        laserShoot(dir);
+        checkTheCollided();
+        isGameOver();
 
+
+    }
+
+    public boolean isReloaded() {
+        long timeDelta = System.currentTimeMillis() - lastShotTime;
+        return timeDelta > reloadTime;
+    }
+
+    private void laserShoot(double dir) {
         // laser shot
-        if (Globals.spaceKeyDown && Laser.isReloaded()) {
+        if (shoot && isReloaded()) {
             new Laser(pane, getX(), getY(), dir);
+            lastShotTime = System.currentTimeMillis();
             this.toFront();
-        }
-
-        // check if collided with an enemy or a powerup
-        for (GameEntity entity : Globals.getGameObjects()) {
-            if (getBoundsInParent().intersects(entity.getBoundsInParent())) {
-                if (entity instanceof Interactable) {
-                    Interactable interactable = (Interactable) entity;
-                    interactable.apply(this);
-                    System.out.println(interactable.getMessage());
-                }
-            }
-        }
-
-        // check for game over condition
-        if (isOutOfBounds() || health <= 0) {
-            System.out.println("Game Over");
-            Globals.gameLoop.stop();
         }
     }
 
@@ -112,7 +79,66 @@ public class SnakeHead extends GameEntity implements Animatable {
         }
     }
 
+    private void checkTheCollided() {
+        // check if collided with an enemy or a powerup
+        for (GameEntity entity : Globals.getGameObjects()) {
+            if (getBoundsInParent().intersects(entity.getBoundsInParent())) {
+                if (entity instanceof Interactable) {
+                    Interactable interactable = (Interactable) entity;
+                    interactable.apply(this);
+                    System.out.println(interactable.getMessage());
+                }
+            }
+        }
+    }
+
     public void changeHealth(int diff) {
         health += diff;
+    }
+
+    private void isGameOver() {
+        // check for game over condition
+        if (isOutOfBounds() || health <= 0) {
+            System.out.println("Game Over");
+            Globals.gameLoop.stop();
+        }
+    }
+
+    private void initEventHandlers(Pane pane, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
+        //EventHandler has to be chained to each other due to only one can be set
+        EventHandler oldKeyPressedHandler = pane.getScene().getOnKeyPressed();
+        pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                System.out.println(event.getCode());
+                if (oldKeyPressedHandler != null) {
+                    oldKeyPressedHandler.handle(event);
+                }
+                if (leftCode == event.getCode()) {
+                    leftKeyDown = true;
+
+                } else if (rightCode == event.getCode()) {
+                    rightKeyDown = true;
+                } else if (shootCode == event.getCode()) {
+                    shoot = true;
+                }
+            }
+        });
+
+        EventHandler keyReleasedEventHandler = pane.getScene().getOnKeyReleased();
+        pane.getScene().setOnKeyReleased(event -> {
+            if (keyReleasedEventHandler != null) {
+                keyReleasedEventHandler.handle(event);
+            }
+            if (leftCode == event.getCode()) {
+                leftKeyDown = false;
+
+            } else if (rightCode == event.getCode()) {
+                rightKeyDown = false;
+
+            } else if (shootCode == event.getCode()) {
+                shoot = false;
+            }
+        });
     }
 }

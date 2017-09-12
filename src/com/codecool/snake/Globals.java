@@ -28,9 +28,6 @@ public class Globals {
 
     //.. put here the other images you want to use
 
-    public static boolean leftKeyDown;
-    public static boolean rightKeyDown;
-    public static boolean spaceKeyDown;
     public static List<GameEntity> gameObjects;
     public static List<GameEntity> newGameObjects; // Holds game objects crated in this frame.
     public static List<GameEntity> oldGameObjects; // Holds game objects that will be destroyed this frame.
