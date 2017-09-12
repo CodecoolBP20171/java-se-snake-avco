@@ -5,8 +5,11 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
+import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
 import javafx.geometry.Point2D;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 public class SnakeHead extends GameEntity implements Animatable {
@@ -15,9 +18,12 @@ public class SnakeHead extends GameEntity implements Animatable {
     private static final float turnRate = 2;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
+    private boolean leftKeyDown = false;
+    private boolean rightKeyDown = false;
 
-    public SnakeHead(Pane pane, int xc, int yc) {
+    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode) {
         super(pane);
+        initEventHandlers(pane, leftCode, rightCode);
         setX(xc);
         setY(yc);
         health = 100;
@@ -28,12 +34,45 @@ public class SnakeHead extends GameEntity implements Animatable {
         addPart(4);
     }
 
+    private void initEventHandlers(Pane pane, KeyCode leftCode, KeyCode rightCode) {
+        //EventHandler has to be chained to each other due to only one can be set
+        EventHandler oldKeyPressedHandler = pane.getScene().getOnKeyPressed();
+        pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (oldKeyPressedHandler != null) {
+                    oldKeyPressedHandler.handle(event);
+                }
+                if (leftCode == event.getCode()) {
+                    leftKeyDown = true;
+
+                } else if (rightCode == event.getCode()) {
+                    rightKeyDown = true;
+                }
+            }
+        });
+
+        EventHandler keyReleasedEventHandler = pane.getScene().getOnKeyReleased();
+        pane.getScene().setOnKeyReleased(event -> {
+            if (keyReleasedEventHandler != null) {
+                keyReleasedEventHandler.handle(event);
+            }
+            if (leftCode == event.getCode()) {
+                leftKeyDown = false;
+
+            } else if (rightCode == event.getCode()) {
+                rightKeyDown = false;
+
+            }
+        });
+    }
+
     public void step() {
         double dir = getRotate();
-        if (Globals.leftKeyDown) {
+        if (leftKeyDown) {
             dir = dir - turnRate;
         }
-        if (Globals.rightKeyDown) {
+        if (rightKeyDown) {
             dir = dir + turnRate;
         }
         // set rotation and position
