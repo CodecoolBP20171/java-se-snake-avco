@@ -17,19 +17,16 @@ public class Game extends Pane {
         SnakeHead snake =  new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP);
         SnakeHead snake2 =  new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
 
-        createSimplePowerup();
-
         Globals.SimpleEnemies.add(Globals.simpleEnemy);
         Globals.SimpleEnemies.add(Globals.simpleEnemy1);
         Globals.SimpleEnemies.add(Globals.simpleEnemy2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy3);
+        int numberOfPowerups = 4;
         for (int i = 0; i < numberOfPowerups ; i++) {
             new SetLengthPowerup(this);
             new AddHealthPowerup(this);
             new SetTurnRatePowerup(this);
         }
-    }
-
         new SimpleEnemy(this, snake);
         new AdvancedEnemy(this, snake);
         new NotSoSimpleEnemy(this, snake);
@@ -37,13 +34,5 @@ public class Game extends Pane {
 
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
-    }
-
-
-    private void createSimplePowerup() {
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
     }
 }
