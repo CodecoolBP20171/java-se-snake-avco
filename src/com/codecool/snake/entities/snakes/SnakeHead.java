@@ -1,11 +1,12 @@
 package com.codecool.snake.entities.snakes;
 
-import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
-import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.Utils;
+import com.codecool.snake.entities.Animatable;
+import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
 import javafx.event.EventHandler;
+import com.codecool.snake.entities.weapons.Laser;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -79,6 +80,12 @@ public class SnakeHead extends GameEntity implements Animatable {
         Point2D heading = Utils.directionToVector(dir, speed);
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
+
+        // laser shot
+        if (Globals.spaceKeyDown && Laser.isReloaded()) {
+            new Laser(pane, getX(), getY(), dir);
+            this.toFront();
+        }
 
         // check if collided with an enemy or a powerup
         for (GameEntity entity : Globals.getGameObjects()) {
