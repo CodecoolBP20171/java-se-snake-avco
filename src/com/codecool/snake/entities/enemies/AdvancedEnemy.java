@@ -5,11 +5,17 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.layout.Pane;
 
+import java.util.Random;
+
 public class AdvancedEnemy extends SimpleEnemy {
 
-    public AdvancedEnemy(Pane pane, SnakeHead snake) {
-        super(pane, snake);
+    private SnakeHead snake;
+
+    public AdvancedEnemy(Pane pane) {
+        super(pane);
         setImage(Globals.advancedEnemy);
+        Random rnd = new Random();
+        this.snake = Globals.players.get(rnd.nextInt(Globals.players.size()));
     }
 
     @Override
@@ -23,10 +29,4 @@ public class AdvancedEnemy extends SimpleEnemy {
         setY(getY() + heading.getY());
     }
 
-    @Override
-    public void apply(SnakeHead player) {
-        player.changeHealth(-damage);
-        destroy();
-        new AdvancedEnemy(pane, snake);
-    }
 }

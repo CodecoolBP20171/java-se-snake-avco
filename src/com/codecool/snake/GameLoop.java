@@ -2,7 +2,10 @@ package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Animatable;
+import com.codecool.snake.entities.enemies.SimpleEnemy;
 import javafx.animation.AnimationTimer;
+
+import java.util.Random;
 
 public class GameLoop extends AnimationTimer {
 
@@ -15,6 +18,7 @@ public class GameLoop extends AnimationTimer {
                 animObject.step();
             }
         }
+
         Globals.gameObjects.addAll(Globals.newGameObjects);
         Globals.newGameObjects.clear();
 
