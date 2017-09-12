@@ -1,6 +1,7 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.enemies.SimpleEnemy;
+import com.codecool.snake.entities.powerups.AddHealthPowerup;
 import com.codecool.snake.entities.powerups.SetLengthPowerup;
 import com.codecool.snake.entities.powerups.SetSpeedPowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
@@ -21,6 +22,7 @@ public class Game extends Pane {
         for (int i = 0; i < numberOfPowerups ; i++) {
             new SetLengthPowerup(this);
             new SetSpeedPowerup(this);
+            new AddHealthPowerup(this);
         }
     }
 

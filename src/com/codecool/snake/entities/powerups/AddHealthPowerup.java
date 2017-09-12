@@ -4,24 +4,21 @@ import com.codecool.snake.Globals;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.layout.Pane;
 
-public class SetSpeedPowerup extends Powerup {
+public class AddHealthPowerup extends Powerup{
 
-    private static float speed = SnakeHead.getSpeed();
-
-    public SetSpeedPowerup(Pane pane) {
+    public AddHealthPowerup(Pane pane) {
         super(pane);
-        setImage(Globals.powerupBerry);
+        setImage(Globals.snakeBody);
     }
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        speed++;
-        snakeHead.setSpeed(speed);
+        snakeHead.changeHealth(10);
         destroy();
     }
 
     @Override
     public String getMessage() {
-        return super.getMessage() + "set speed up";
+        return super.getMessage() + "add 10 extra health";
     }
 }
