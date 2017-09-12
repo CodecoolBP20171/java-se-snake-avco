@@ -13,19 +13,30 @@ public class Game extends Pane {
 
 
     public void start() {
-        new SnakeHead(this, 300, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.ENTER);
-        new SnakeHead(this, 300, 500, KeyCode.A, KeyCode.D, KeyCode.SPACE);
+        createSnakes();
+        createSimpleEnemy();
+        createSimplePowerup();
 
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-        new SimpleEnemy(this);
-
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
-        new SimplePowerup(this);
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
+    }
+
+    private void createSnakes() {
+        new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP);
+        new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
+    }
+
+    private void createSimpleEnemy() {
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
+        new SimpleEnemy(this);
+    }
+
+    private void createSimplePowerup() {
+        new SimplePowerup(this);
+        new SimplePowerup(this);
+        new SimplePowerup(this);
+        new SimplePowerup(this);
     }
 }
