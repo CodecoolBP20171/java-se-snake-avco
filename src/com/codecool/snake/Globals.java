@@ -17,8 +17,11 @@ public class Globals {
     public static Image snakeHead = new Image("snake_head.png");
     public static Image snakeBody = new Image("snake_body.png");
     public static Image simpleEnemy = new Image("simple_enemy.png");
-    public static Image powerupBerry = new Image("powerup_berry.png");
-    public static Image powerupLonger = new Image("snake_head.png");
+
+    public static Image powerupSetSpeed = new Image("powerup_berry.png");
+    public static Image powerupSetLength = new Image("snake_head.png");
+    public static Image powerupAddHealth = new Image("snake_body.png");
+    public static Image powerupSetTurnRate = new Image("http://www.pngall.com/wp-content/uploads/2016/06/Health-Free-Download-PNG.png");
 
     //.. put here the other images you want to use
 

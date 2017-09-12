@@ -4,6 +4,7 @@ import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.AddHealthPowerup;
 import com.codecool.snake.entities.powerups.SetLengthPowerup;
 import com.codecool.snake.entities.powerups.SetSpeedPowerup;
+import com.codecool.snake.entities.powerups.SetTurnRatePowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -23,6 +24,7 @@ public class Game extends Pane {
             new SetLengthPowerup(this);
             new SetSpeedPowerup(this);
             new AddHealthPowerup(this);
+            new SetTurnRatePowerup(this);
         }
     }
 

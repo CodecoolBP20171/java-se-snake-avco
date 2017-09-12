@@ -10,7 +10,7 @@ public class SetSpeedPowerup extends Powerup {
 
     public SetSpeedPowerup(Pane pane) {
         super(pane);
-        setImage(Globals.powerupBerry);
+        setImage(Globals.powerupSetSpeed);
     }
 
     @Override

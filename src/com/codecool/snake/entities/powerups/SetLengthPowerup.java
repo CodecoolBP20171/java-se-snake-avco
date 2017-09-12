@@ -8,7 +8,7 @@ public class SetLengthPowerup extends Powerup {
 
     public SetLengthPowerup(Pane pane) {
         super(pane);
-        setImage(Globals.powerupLonger);
+        setImage(Globals.powerupSetLength);
     }
 
     @Override

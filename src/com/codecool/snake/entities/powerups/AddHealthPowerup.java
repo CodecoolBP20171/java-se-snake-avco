@@ -8,7 +8,7 @@ public class AddHealthPowerup extends Powerup{
 
     public AddHealthPowerup(Pane pane) {
         super(pane);
-        setImage(Globals.snakeBody);
+        setImage(Globals.powerupAddHealth);
     }
 
     @Override
