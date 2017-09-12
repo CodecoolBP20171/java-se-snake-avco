@@ -20,10 +20,12 @@ public class SnakeHead extends GameEntity implements Animatable {
     private int health;
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
+    private boolean shoot = false;
 
-    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode) {
+
+    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
         super(pane);
-        initEventHandlers(pane, leftCode, rightCode);
+        initEventHandlers(pane, leftCode, rightCode, shootCode);
         setX(xc);
         setY(yc);
         health = 100;
@@ -34,7 +36,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         addPart(4);
     }
 
-    private void initEventHandlers(Pane pane, KeyCode leftCode, KeyCode rightCode) {
+    private void initEventHandlers(Pane pane, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
         //EventHandler has to be chained to each other due to only one can be set
         EventHandler oldKeyPressedHandler = pane.getScene().getOnKeyPressed();
         pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -48,6 +50,8 @@ public class SnakeHead extends GameEntity implements Animatable {
 
                 } else if (rightCode == event.getCode()) {
                     rightKeyDown = true;
+                } else if (shootCode == event.getCode()){
+                    shoot = true;
                 }
             }
         });
@@ -63,6 +67,8 @@ public class SnakeHead extends GameEntity implements Animatable {
             } else if (rightCode == event.getCode()) {
                 rightKeyDown = false;
 
+            } else if (shootCode == event.getCode()){
+                shoot = false;
             }
         });
     }
@@ -82,7 +88,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         setY(getY() + heading.getY());
 
         // laser shot
-        if (Globals.spaceKeyDown && Laser.isReloaded()) {
+        if (shoot && Laser.isReloaded()) {
             new Laser(pane, getX(), getY(), dir);
             this.toFront();
         }
