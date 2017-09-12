@@ -13,10 +13,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static Stage primaryStage;
+    private static Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     @Override
@@ -33,30 +37,4 @@ public class Main extends Application {
         game.start();
     }
 
-    public static void restart(Stage primaryStage) {
-        Button restartButton = new Button();
-        restartButton.setText("Restart");
-        Button continueButton = new Button();
-        continueButton.setText("Continue");
-        final Stage dialog = new Stage();
-        Globals.gameLoop.stop();
-        continueButton.setOnAction(event -> {
-            dialog.close();
-            Globals.gameLoop.start();
-        });
-        restartButton.setOnAction(event -> {
-            new Main().start(primaryStage);
-            dialog.close();
-            Globals.gameLoop.start();
-            Globals.clearGameObjects();
-        });
-        dialog.initOwner(primaryStage);
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(restartButton);
-        dialogVbox.getChildren().add(continueButton);
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
-        dialog.setOnCloseRequest(event -> Globals.gameLoop.start());
-    }
 }

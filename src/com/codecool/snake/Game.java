@@ -9,7 +9,6 @@ import com.codecool.snake.entities.powerups.SetTurnRatePowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 
@@ -37,18 +36,15 @@ public class Game extends Pane {
         new NotSoSimpleEnemy(this, snake);
 
         EventHandler oldKeyPressedHandler = this.getScene().getOnKeyPressed();
-        this.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-                                            @Override
-                                            public void handle(KeyEvent event) {
-                                                if (oldKeyPressedHandler != null) {
-                                                    oldKeyPressedHandler.handle(event);
-                                                }
-                                                if (event.getCode() == KeyCode.ESCAPE) {
-                                                    Main.restart(Main.primaryStage);
-                                                }
+        this.getScene().setOnKeyPressed(event -> {
+            if (oldKeyPressedHandler != null) {
+                oldKeyPressedHandler.handle(event);
+            }
+            if (event.getCode() == KeyCode.ESCAPE) {
+                Gui.popUpWindow(Main.getPrimaryStage());
+            }
 
-                                            }
-                                        });
+        });
 
 
         Globals.gameLoop = new GameLoop();
