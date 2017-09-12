@@ -7,7 +7,9 @@ import com.codecool.snake.entities.powerups.AddHealthPowerup;
 import com.codecool.snake.entities.powerups.SetLengthPowerup;
 import com.codecool.snake.entities.powerups.SetTurnRatePowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 
@@ -21,15 +23,32 @@ public class Game extends Pane {
         Globals.SimpleEnemies.add(Globals.simpleEnemy1);
         Globals.SimpleEnemies.add(Globals.simpleEnemy2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy3);
+
         int numberOfPowerups = 4;
+
         for (int i = 0; i < numberOfPowerups ; i++) {
             new SetLengthPowerup(this);
             new AddHealthPowerup(this);
             new SetTurnRatePowerup(this);
         }
+
         new SimpleEnemy(this, snake);
         new AdvancedEnemy(this, snake);
         new NotSoSimpleEnemy(this, snake);
+
+        EventHandler oldKeyPressedHandler = this.getScene().getOnKeyPressed();
+        this.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                                            @Override
+                                            public void handle(KeyEvent event) {
+                                                if (oldKeyPressedHandler != null) {
+                                                    oldKeyPressedHandler.handle(event);
+                                                }
+                                                if (event.getCode() == KeyCode.ESCAPE) {
+                                                    Main.restart(Main.primaryStage);
+                                                }
+
+                                            }
+                                        });
 
 
         Globals.gameLoop = new GameLoop();
