@@ -11,6 +11,8 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
+import java.awt.*;
+
 public class Game extends Pane {
 
     public void start() {
@@ -24,6 +26,7 @@ public class Game extends Pane {
         Globals.SimpleEnemies.add(Globals.simpleEnemy1);
         Globals.SimpleEnemies.add(Globals.simpleEnemy2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy3);
+
 
         int numberOfPowerups = 1;
         for (int i = 0; i < numberOfPowerups ; i++) {
