@@ -15,6 +15,7 @@ public class SetLengthPowerup extends Powerup {
     public void apply(SnakeHead snakeHead) {
         int numberOfNewParts = 4;
         snakeHead.addPart(numberOfNewParts);
+//        setHistory(snakeHead);
         destroy();
     }
 

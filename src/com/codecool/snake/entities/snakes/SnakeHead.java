@@ -18,7 +18,8 @@ import java.util.HashSet;
 
 public class SnakeHead extends GameEntity implements Animatable,Interactable {
 
-    private static float speed = 2;
+    private float speed = 2;
+    private float maxSpeed = 5;
     private float turnRate = 2;
     private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
@@ -48,6 +49,10 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         addPart(4);
     }
 
+    public float getMaxSpeed() {
+        return maxSpeed;
+    }
+
     public float getTurnRate() {
         return turnRate;
     }
@@ -56,11 +61,11 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         this.turnRate = turnRate;
     }
 
-    public static void setSpeed(float speed) {
-        SnakeHead.speed = speed;
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
-    public static float getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 

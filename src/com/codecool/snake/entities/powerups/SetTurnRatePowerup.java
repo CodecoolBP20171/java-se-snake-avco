@@ -29,28 +29,33 @@ public class SetTurnRatePowerup extends Powerup {
         turnRate++;
         snakeHead.setTurnRate(turnRate);
 
-
         this.speed = snakeHead.getSpeed();
-        speed += 2;
-        snakeHead.setSpeed(speed);
+        speed += 1;
+
+        if (speed < snakeHead.getMaxSpeed()) {
+            snakeHead.setSpeed(speed);
+            setHistory(snakeHead);
+        }
+
+        destroy();
+    }
+
+    private void setHistory(SnakeHead snakeHead) {
         SnakeBody tailOfSnake = (SnakeBody) snakeHead.getTail();
-        tailOfSnake.getSnakeParts().remove(0);
+        tailOfSnake.getSnakeParts().remove(snakeHead);
         List<SnakeBody> snakeFullBodyWithoutHead = new ArrayList<>();
 
         for (GameEntity part: tailOfSnake.getSnakeParts()) {
-                snakeFullBodyWithoutHead.add((SnakeBody) part);
+            snakeFullBodyWithoutHead.add((SnakeBody) part);
         }
 
         for (SnakeBody body: snakeFullBodyWithoutHead) {
             this.history = body.getHistory();
-            for (int i = 0; i < history.size() - 7; i++) {
+            for (int i = 0; i < history.size() - 5; i++) {
                 body.pollHistory();
             }
-
         }
-
-
-        destroy();
+        tailOfSnake.getSnakeParts().add(0, snakeHead);
     }
 
     @Override
