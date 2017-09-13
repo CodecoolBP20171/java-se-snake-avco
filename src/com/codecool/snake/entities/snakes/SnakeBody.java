@@ -70,4 +70,12 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
     public String getMessage() {
         return null;
     }
+
+    public Queue<Vec2d> getHistory() {
+        return history;
+    }
+
+    public void pollHistory() {
+        history.poll();
+    }
 }
