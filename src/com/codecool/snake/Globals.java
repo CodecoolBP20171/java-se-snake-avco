@@ -12,8 +12,8 @@ import java.util.List;
 // class for holding all static stuff
 public class Globals {
 
-    public static final double WINDOW_WIDTH = 600;
-    public static final double WINDOW_HEIGHT = 600;
+    public static final double WINDOW_WIDTH = 900;
+    public static final double WINDOW_HEIGHT = 700;
 
     public static Image snakeHead = new Image("snake_head.png");
     public static Image snakeBody = new Image("snake_body.png");
@@ -64,5 +64,9 @@ public class Globals {
 
     public static int getNumOfEnemies() {
         return numOfEnemies;
+    }
+
+    public static void clearGameObjects() {
+        Globals.gameObjects.clear();
     }
 }

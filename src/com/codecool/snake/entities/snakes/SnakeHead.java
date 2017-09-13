@@ -131,7 +131,6 @@ public class SnakeHead extends GameEntity implements Animatable {
         pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                System.out.println(event.getCode());
                 if (oldKeyPressedHandler != null) {
                     oldKeyPressedHandler.handle(event);
                 }
