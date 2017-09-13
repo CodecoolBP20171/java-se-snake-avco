@@ -1,9 +1,15 @@
 package com.codecool.snake;
 
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Gui {
@@ -33,7 +39,7 @@ public class Gui {
         dialog.setOnCloseRequest(event -> Globals.gameLoop.start());
     }
 
-    public static void gameOverWindow(Stage primaryStage) {
+    public static void gameOverWindow(Stage primaryStage, int length) {
         Button restartButton = new Button();
         Button exitButton = new Button();
         restartButton.setText("Restart");
@@ -47,6 +53,16 @@ public class Gui {
         VBox gameOverBox = new VBox(20);
         Scene gameOverScene = new Scene(gameOverBox, 300, 200);
 
+        Text text = new Text();
+        text.setText("GAME OVER!\n" + "Your score: " + length);
+        FlowPane pane = new FlowPane();
+        pane.setAlignment(Pos.CENTER);
+        text.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
+        text.setFill(Color.BLACK);
+        pane.getChildren().add(text);
+        gameOverBox.getChildren().add(pane);
+
+        gameOverBox.setAlignment(Pos.CENTER);
         gameOverBox.getChildren().add(restartButton);
         gameOverBox.getChildren().add(exitButton);
 
