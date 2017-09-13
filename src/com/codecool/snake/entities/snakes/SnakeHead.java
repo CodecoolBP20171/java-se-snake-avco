@@ -10,6 +10,7 @@ import com.codecool.snake.entities.Interactable;
 import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -29,8 +30,8 @@ public class SnakeHead extends GameEntity implements Animatable {
     private double dir;
     private int timer;
     private int length;
-
-
+    private String snakeHeadColor;
+    private Image snakeHeadImage;
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
         super(pane);
@@ -38,12 +39,25 @@ public class SnakeHead extends GameEntity implements Animatable {
         health = 100;
         setX(xc);
         setY(yc);
-        setImage(Globals.snakeHead);
+
+        setSnakeHeadImage();
+        setImage(snakeHeadImage);
+
         pane.getChildren().add(this);
         initEventHandlers(pane, leftCode, rightCode, shootCode);
         snakesAlive++;
 
         addPart(4);
+    }
+
+    private void setSnakeHeadImage() {
+        if (snakesAlive % 2 == 1) {
+            snakeHeadColor = "green";
+            snakeHeadImage = Globals.snakeHeadGreen;
+        } else {
+            snakeHeadColor = "red";
+            snakeHeadImage = Globals.snakeHeadRed;
+        }
     }
 
     public static float getTurnRate() {
@@ -64,6 +78,10 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public int getHealth() {
         return health;
+    }
+
+    public String getSnakeHeadColor() {
+        return snakeHeadColor;
     }
 
     public void step() {
@@ -87,9 +105,11 @@ public class SnakeHead extends GameEntity implements Animatable {
     }
 
     public void checkGate() {
-        if (timer > 0) { timer--; }
+        if (timer > 0) {
+            timer--;
+        }
         double gateSize = Globals.WINDOW_HEIGHT / 2;
-        if (getY() > gateSize -50 && getY() < gateSize + 50) {
+        if (getY() > gateSize - 50 && getY() < gateSize + 50) {
             if (getX() > Globals.WINDOW_WIDTH - 5 && timer == 0) {
                 setX(10);
                 dir += 180;
@@ -99,7 +119,9 @@ public class SnakeHead extends GameEntity implements Animatable {
                 dir += 180;
                 timer = 60;
             }
-        } else { isGameOver(); }
+        } else {
+            isGameOver();
+        }
     }
 
     public boolean isReloaded() {
@@ -144,9 +166,9 @@ public class SnakeHead extends GameEntity implements Animatable {
     private void isGameOver() {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
-            System.out.println("Game Over");
             snakesAlive--;
             if (snakesAlive == 0) {
+                System.out.println("Game Over");
                 Gui.gameOverWindow(Main.getPrimaryStage(), length);
             } else {
                 this.destroy();

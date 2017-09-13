@@ -5,6 +5,7 @@ import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
 import com.sun.javafx.geom.Vec2d;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,11 +16,14 @@ public class SnakeBody extends GameEntity implements Animatable {
     private GameEntity parent;
     private Queue<Vec2d> history = new LinkedList<>();
     private static final int historySize = 10;
+    private Image bodyImage;
 
     public SnakeBody(Pane pane, GameEntity parent) {
         super(pane);
         this.parent = parent;
-        setImage(Globals.snakeBody);
+
+        setBodyColor(parent);
+        setImage(bodyImage);
 
         // place it visually below the current tail
         List<Node> children = pane.getChildren();
@@ -34,6 +38,21 @@ public class SnakeBody extends GameEntity implements Animatable {
         }
     }
 
+    private void setBodyColor(GameEntity parent) {
+        if (parent instanceof SnakeHead) {
+            SnakeHead head = (SnakeHead) parent;
+            System.out.println(head.getSnakeHeadColor());
+            if (head.getSnakeHeadColor().equals("green")) {
+                bodyImage = Globals.snakeBodyGreen;
+            } else {
+                bodyImage = Globals.snakeBodyRed;
+            }
+        } else {
+            SnakeBody bodyPart = (SnakeBody) parent;
+            bodyImage = bodyPart.getBodyImage();
+        }
+    }
+
     public void step() {
         Vec2d pos = history.poll(); // remove the oldest item from the history
         setX(pos.x);
@@ -41,4 +60,7 @@ public class SnakeBody extends GameEntity implements Animatable {
         history.add(new Vec2d(parent.getX(), parent.getY())); // add the parent's current position to the beginning of the history
     }
 
+    public Image getBodyImage() {
+        return bodyImage;
+    }
 }
