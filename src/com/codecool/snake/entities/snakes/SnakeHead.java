@@ -84,15 +84,18 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public void checkGate() {
         if (timer > 0) { timer--; }
-        if (getX() > Globals.WINDOW_WIDTH - 5 && timer == 0) {
-            setX(10);
-            dir += 180;
-            timer = 60;
-        } else if (getX() < 5 && timer == 0) {
-            setX(Globals.WINDOW_WIDTH - 30);
-            dir += 180;
-            timer = 60;
-        }
+        double gateSize = Globals.WINDOW_HEIGHT / 2;
+        if (getY() > gateSize -50 && getY() < gateSize + 50) {
+            if (getX() > Globals.WINDOW_WIDTH - 5 && timer == 0) {
+                setX(10);
+                dir += 180;
+                timer = 60;
+            } else if (getX() < 5 && timer == 0) {
+                setX(Globals.WINDOW_WIDTH - 30);
+                dir += 180;
+                timer = 60;
+            }
+        } else { isGameOver(); }
     }
 
     public boolean isReloaded() {
