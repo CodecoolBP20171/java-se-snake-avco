@@ -13,7 +13,11 @@ import jdk.nashorn.internal.objects.Global;
 public class Main extends Application {
 
     private static Stage primaryStage;
+    private static Game GAME;
 
+    public static Game getGAME() {
+        return GAME;
+    }
     public static void main(String[] args) {
         launch(args);
     }
@@ -26,25 +30,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         Game game = new Game();
+        this.GAME = game;
         primaryStage.setTitle("Snake Game");
         Scene scene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
 
-        Rectangle test = new Rectangle(Globals.WINDOW_WIDTH , Globals.WINDOW_HEIGHT );
-        test.setStroke(Color.YELLOWGREEN);
-        test.setFill(Color.LIGHTSEAGREEN);
-        game.getChildren().add(test);
-        test.setStrokeWidth(20);
-
-        Line gate = new Line(5, Globals.WINDOW_HEIGHT / 2 - 50, 5, Globals.WINDOW_HEIGHT / 2 + 50);
-        gate.setFill(Color.RED);
-        gate.setStrokeWidth(10);
-        game.getChildren().add(gate);
-
-        Line gate2 = new Line(Globals.WINDOW_WIDTH -5 , Globals.WINDOW_HEIGHT / 2 - 50, Globals.WINDOW_WIDTH - 5, Globals.WINDOW_HEIGHT / 2 + 50);
-        gate2.setFill(Color.RED);
-        gate2.setStrokeWidth(10);
-        game.getChildren().add(gate2);
-
+        Gui.chooseTheme(game);
         primaryStage.setScene(scene);
         primaryStage.show();
 

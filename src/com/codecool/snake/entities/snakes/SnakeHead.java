@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
 import javafx.geometry.Point2D;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -34,6 +35,9 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
     private int length;
     private SimpleStringProperty score = new SimpleStringProperty("Score: 0");
     private int intScore;
+    private static int progressBarPosition = 20;
+    private static String progressBarColor = " -fx-accent: red; ";
+    private ProgressBar progressBar = new ProgressBar(1);
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
         super(pane);
@@ -45,7 +49,19 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         pane.getChildren().add(this);
         initEventHandlers(pane, leftCode, rightCode, shootCode);
         snakesAlive++;
+        progressBar.setLayoutX(progressBarPosition);
+        progressBar.setLayoutY(20);
+        Main.getGAME().getChildren().add(progressBar);
+
         addPart(4);
+        progressBarPosition = (int) Globals.WINDOW_WIDTH - health - 20;
+        progressBar.setStyle("" +
+                        "-fx-control-inner-background: white;" +
+                progressBarColor +
+                "-fx-fill:null;" +
+                "-fx-padding: 0 0 -16 0;"
+                );
+        progressBarColor = " -fx-accent: blue; ";
     }
 
     public float getTurnRate() {
@@ -89,9 +105,11 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
     }
 
     public void checkGate() {
-        if (timer > 0) { timer--; }
+        if (timer > 0) {
+            timer--;
+        }
         double gateSize = Globals.WINDOW_HEIGHT / 2;
-        if (getY() > gateSize -50 && getY() < gateSize + 50) {
+        if (getY() > gateSize - 50 && getY() < gateSize + 50) {
             if (getX() > Globals.WINDOW_WIDTH - 5 && timer == 0) {
                 setX(0);
                 dir += 180;
@@ -101,7 +119,9 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
                 dir += 180;
                 timer = 60;
             }
-        } else { isGameOver(); }
+        } else {
+            isGameOver();
+        }
     }
 
     public boolean isReloaded() {
@@ -143,7 +163,18 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         return null;
     }
     public void changeHealth(int diff) {
-        health += diff;
+        if (diff < 0) {
+            health += diff;
+        } else {
+
+            if (health != 100 && health + diff < 100) {
+
+                health += diff;
+            } else {
+                health = 100;
+            }
+        }
+        Gui.createHealthBar(progressBar, health);
     }
 
     private void isGameOver() {

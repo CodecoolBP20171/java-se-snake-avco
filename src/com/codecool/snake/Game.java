@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
-import java.awt.*;
 
 public class Game extends Pane {
 
