@@ -36,19 +36,19 @@ public class Main extends Application {
         primaryStage.setTitle("Snake Game");
         Scene scene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
 
-        Rectangle test = new Rectangle(Globals.WINDOW_WIDTH , Globals.WINDOW_HEIGHT );
-        test.setStroke(Color.YELLOWGREEN);
-        test.setFill(Color.LIGHTSEAGREEN);
+        Rectangle test = new Rectangle(Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
+        test.setStroke(Color.YELLOW);
+        test.setFill(Color.LIGHTBLUE);
         game.getChildren().add(test);
         test.setStrokeWidth(20);
 
-        Line gate = new Line(5, Globals.WINDOW_HEIGHT / 2 - 50, 5, Globals.WINDOW_HEIGHT / 2 + 50);
-        gate.setFill(Color.RED);
+        Line gate = new Line(5, Globals.WINDOW_HEIGHT / 2 - 50,
+                5, Globals.WINDOW_HEIGHT / 2 + 50);
         gate.setStrokeWidth(10);
         game.getChildren().add(gate);
 
-        Line gate2 = new Line(Globals.WINDOW_WIDTH -5 , Globals.WINDOW_HEIGHT / 2 - 50, Globals.WINDOW_WIDTH - 5, Globals.WINDOW_HEIGHT / 2 + 50);
-        gate2.setFill(Color.RED);
+        Line gate2 = new Line(Globals.WINDOW_WIDTH - 5, Globals.WINDOW_HEIGHT / 2 - 50,
+                Globals.WINDOW_WIDTH - 5, Globals.WINDOW_HEIGHT / 2 + 50);
         gate2.setStrokeWidth(10);
         game.getChildren().add(gate2);
 

@@ -15,21 +15,29 @@ import javafx.stage.Stage;
 public class Gui {
 
     public static void popUpWindow(Stage primaryStage) {
-        Button restartButton = new Button();
-        Button continueButton = new Button();
-        restartButton.setText("Restart");
-        continueButton.setText("Continue");
-        Stage dialog = new Stage();
         Globals.gameLoop.stop();
-        continueButton.setOnAction(event -> {
-            continueTheGame(dialog);
-        });
-        restartButton.setOnAction(event -> {
-            restartGame(primaryStage, dialog);
-        });
+
+        Stage dialog = new Stage();
+
+        Button restartButton = new Button();
+        restartButton.setText("Restart");
+        restartButton.setOnAction(event -> restartGame(primaryStage, dialog));
+
+        Button continueButton = new Button();
+        continueButton.setText("Continue");
+        continueButton.setOnAction(event -> continueTheGame(dialog));
+
         VBox dialogVbox = new VBox(20);
+        dialogVbox.setStyle("-fx-background-color:#fffa77;");
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
 
+        Text text = new Text();
+        text.setText("Game paused");
+        text.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
+        text.setFill(Color.BLACK);
+
+        dialogVbox.setAlignment(Pos.CENTER);
+        dialogVbox.getChildren().add(text);
         dialogVbox.getChildren().add(restartButton);
         dialogVbox.getChildren().add(continueButton);
 
@@ -39,31 +47,30 @@ public class Gui {
         dialog.setOnCloseRequest(event -> Globals.gameLoop.start());
     }
 
-    public static void gameOverWindow(Stage primaryStage, int length) {
-        Button restartButton = new Button();
-        Button exitButton = new Button();
-        restartButton.setText("Restart");
-        exitButton.setText("Exit");
+    public static void gameOverWindow(Stage primaryStage, int score) {
+        Globals.gameLoop.stop();
 
         Stage gameOverStage = new Stage();
-        Globals.gameLoop.stop();
-        exitButton.setOnAction(event -> Platform.exit());
+
+        Button restartButton = new Button();
+        restartButton.setText("Restart");
         restartButton.setOnAction(event -> restartGame(primaryStage, gameOverStage));
 
+        Button exitButton = new Button();
+        exitButton.setText("Exit");
+        exitButton.setOnAction(event -> Platform.exit());
+
         VBox gameOverBox = new VBox(20);
-        gameOverBox.setStyle("-fx-background-color:#fff;");
+        gameOverBox.setStyle("-fx-background-color:#fffa77;");
         Scene gameOverScene = new Scene(gameOverBox, 300, 200);
 
         Text text = new Text();
-        text.setText("GAME OVER!\n" + "Your score: " + length);
-        FlowPane pane = new FlowPane();
-        pane.setAlignment(Pos.CENTER);
+        text.setText("GAME OVER!\n" + "Your score: " + score);
         text.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
         text.setFill(Color.BLACK);
-        pane.getChildren().add(text);
-        gameOverBox.getChildren().add(pane);
 
         gameOverBox.setAlignment(Pos.CENTER);
+        gameOverBox.getChildren().add(text);
         gameOverBox.getChildren().add(restartButton);
         gameOverBox.getChildren().add(exitButton);
 
