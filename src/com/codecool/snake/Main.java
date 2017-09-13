@@ -1,21 +1,14 @@
 package com.codecool.snake;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import javax.xml.bind.annotation.XmlElementDecl;
-import java.awt.*;
+import jdk.nashorn.internal.objects.Global;
 
 public class Main extends Application {
 

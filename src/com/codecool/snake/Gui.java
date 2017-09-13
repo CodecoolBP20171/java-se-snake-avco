@@ -55,7 +55,7 @@ public class Gui {
         Scene gameOverScene = new Scene(gameOverBox, 300, 200);
 
         Text text = new Text();
-        text.setText("GAME OVER!\n" + "Your score: " + length);
+        text.setText("GAME OVER!\n" + "Your score1: " + length);
         FlowPane pane = new FlowPane();
         pane.setAlignment(Pos.CENTER);
         text.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
@@ -83,5 +83,6 @@ public class Gui {
         continueTheGame(dialog);
         Globals.clearGameObjects();
     }
+
 }
 
