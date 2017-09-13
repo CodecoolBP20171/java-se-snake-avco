@@ -1,6 +1,8 @@
 package com.codecool.snake.entities.snakes;
 
 import com.codecool.snake.Globals;
+import com.codecool.snake.Gui;
+import com.codecool.snake.Main;
 import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
@@ -11,8 +13,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-
-import java.util.Random;
 
 public class SnakeHead extends GameEntity implements Animatable {
 
@@ -25,6 +25,7 @@ public class SnakeHead extends GameEntity implements Animatable {
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
     private boolean shoot = false;
+    private int length;
 
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
@@ -97,6 +98,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         for (int i = 0; i < numParts; i++) {
             SnakeBody newPart = new SnakeBody(pane, tail);
             tail = newPart;
+            length++;
         }
     }
 
