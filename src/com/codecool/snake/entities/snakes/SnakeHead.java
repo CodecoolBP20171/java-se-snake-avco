@@ -1,6 +1,8 @@
 package com.codecool.snake.entities.snakes;
 
 import com.codecool.snake.Globals;
+import com.codecool.snake.Gui;
+import com.codecool.snake.Main;
 import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
@@ -12,12 +14,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-import java.util.Random;
-
 public class SnakeHead extends GameEntity implements Animatable {
 
     private static float speed = 2;
     private static float turnRate = 2;
+    private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
     private long lastShotTime;
@@ -25,6 +26,8 @@ public class SnakeHead extends GameEntity implements Animatable {
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
     private boolean shoot = false;
+    private int length;
+
 
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
@@ -36,6 +39,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         setImage(Globals.snakeHead);
         pane.getChildren().add(this);
         initEventHandlers(pane, leftCode, rightCode, shootCode);
+        snakesAlive++;
 
         addPart(4);
     }
@@ -97,6 +101,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         for (int i = 0; i < numParts; i++) {
             SnakeBody newPart = new SnakeBody(pane, tail);
             tail = newPart;
+            length++;
         }
     }
 
@@ -121,7 +126,12 @@ public class SnakeHead extends GameEntity implements Animatable {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
             System.out.println("Game Over");
-            Globals.gameLoop.stop();
+            snakesAlive--;
+            if (snakesAlive == 0) {
+                Gui.gameOverWindow(Main.getPrimaryStage(), length);
+            } else {
+                this.destroy();
+            }
         }
     }
 
