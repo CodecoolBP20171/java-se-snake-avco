@@ -14,10 +14,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-public class SnakeHead extends GameEntity implements Animatable {
+import java.util.HashSet;
+
+public class SnakeHead extends GameEntity implements Animatable,Interactable {
 
     private static float speed = 2;
-    private static float turnRate = 2;
+    private float turnRate = 2;
     private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
@@ -46,12 +48,12 @@ public class SnakeHead extends GameEntity implements Animatable {
         addPart(4);
     }
 
-    public static float getTurnRate() {
+    public float getTurnRate() {
         return turnRate;
     }
 
-    public static void setTurnRate(float turnRate) {
-        SnakeHead.turnRate = turnRate;
+    public void setTurnRate(float turnRate) {
+        this.turnRate = turnRate;
     }
 
     public static void setSpeed(float speed) {
@@ -137,6 +139,9 @@ public class SnakeHead extends GameEntity implements Animatable {
         }
     }
 
+    public HashSet<GameEntity> getSnakeParts() {
+        return null;
+    }
     public void changeHealth(int diff) {
         health += diff;
     }
@@ -189,5 +194,21 @@ public class SnakeHead extends GameEntity implements Animatable {
                 shoot = false;
             }
         });
+    }
+
+    @Override
+    public void apply(SnakeHead snakeHead) {
+        if (this != snakeHead) {
+            Globals.gameLoop.stop();
+        }
+    }
+
+    @Override
+    public String getMessage() {
+        return null;
+    }
+
+    public GameEntity getTail() {
+        return tail;
     }
 }
