@@ -15,7 +15,7 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
     private GameEntity parent;
     private Queue<Vec2d> history = new LinkedList<>();
     private static final int historySize = 10;
-    private HashSet<GameEntity> snakeParts = new LinkedHashSet<>();
+    private List<GameEntity> snakeParts = new ArrayList<>();
 
     public SnakeBody(Pane pane, GameEntity parent) {
         super(pane);
@@ -43,7 +43,7 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
         }
     }
 
-    public HashSet<GameEntity> getSnakeParts() {
+    public List<GameEntity> getSnakeParts() {
         return snakeParts;
     }
 
@@ -56,15 +56,12 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        for (GameEntity partOfSnake: snakeParts) {
-            if (partOfSnake instanceof SnakeHead) {
-                if (partOfSnake != snakeHead) {
-                    SnakeBody lastPart = (SnakeBody) snakeHead.getTail();
-                    Globals.players.remove(snakeHead);
-                    for (GameEntity pieceOfSnake: lastPart.getSnakeParts()) {
-                        pieceOfSnake.destroy();
-                    }
-                }
+        SnakeHead headOfThisBody = (SnakeHead) snakeParts.get(0);
+        if (headOfThisBody != snakeHead) {
+            SnakeBody lastPart = (SnakeBody) snakeHead.getTail();
+            Globals.players.remove(snakeHead);
+            for (GameEntity pieceOfSnake: lastPart.getSnakeParts()) {
+                pieceOfSnake.destroy();
             }
         }
     }
