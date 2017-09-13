@@ -18,17 +18,16 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     protected static final int damage = 10;
     protected double direction;
     protected Random rnd = new Random();
-    protected SnakeHead snake;
     protected int charSize;
     protected int speed;
 
 
-    public SimpleEnemy(Pane pane, SnakeHead snake) {
+    public SimpleEnemy(Pane pane) {
         super(pane);
         setImage(Globals.SimpleEnemies.get(rnd.nextInt(Globals.SimpleEnemies.size())));
         pane.getChildren().add(this);
-        this.snake = snake;
         this.setValidPosition();
+        Globals.setNumOfEnemies(1);
     }
 
     public void setValidPosition() {
@@ -39,13 +38,30 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
             double yPos = (double) rnd.nextInt((int) (Globals.WINDOW_HEIGHT - charSize) - charSize + 1) + charSize;
             setX(xPos);
             setY(yPos);
-            if (!getBoundsInParent().intersects(snake.getBoundsInParent())) {
-                break;
+            for (SnakeHead player: Globals.players) {
+                if (getBoundsInParent().intersects(player.getBoundsInParent())) {
+                    break;
+                }
             }
+            break;
         }
         direction = rnd.nextDouble() * 360;
         setRotate(direction);
         heading = Utils.directionToVector(direction, speed);
+    }
+
+    public void checkUnitNumbers() {
+        if (Globals.getNumOfEnemies() < 3) {
+            int choose = rnd.nextInt(3) + 1;
+            switch (choose) {
+                case 1: new SimpleEnemy(pane);
+                        break;
+                case 2: new NotSoSimpleEnemy(pane);
+                        break;
+                case 3: new AdvancedEnemy(pane);
+                        break;
+            }
+        }
     }
 
     @Override
@@ -63,7 +79,8 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
-        new SimpleEnemy(pane, snake);
+        Globals.setNumOfEnemies(-1);
+        checkUnitNumbers();
     }
 
     @Override

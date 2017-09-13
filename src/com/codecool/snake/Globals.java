@@ -1,6 +1,7 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import java.util.List;
 // class for holding all static stuff
 public class Globals {
 
-    public static final double WINDOW_WIDTH = 1600;
-    public static final double WINDOW_HEIGHT = 900;
+    public static final double WINDOW_WIDTH = 600;
+    public static final double WINDOW_HEIGHT = 600;
 
     public static Image snakeHead = new Image("snake_head.png");
     public static Image snakeBody = new Image("snake_body.png");
@@ -35,11 +36,14 @@ public class Globals {
     public static List<GameEntity> newGameObjects; // Holds game objects crated in this frame.
     public static List<GameEntity> oldGameObjects; // Holds game objects that will be destroyed this frame.
     public static GameLoop gameLoop;
+    public static List<SnakeHead> players;
+    static int numOfEnemies;
 
     static {
         gameObjects = new LinkedList<>();
         newGameObjects = new LinkedList<>();
         oldGameObjects = new LinkedList<>();
+        players = new ArrayList<>();
     }
 
     public static void addGameObject(GameEntity toAdd) {
@@ -52,5 +56,13 @@ public class Globals {
 
     public static List<GameEntity> getGameObjects() {
         return Collections.unmodifiableList(gameObjects);
+    }
+
+    public static void setNumOfEnemies(int number) {
+        numOfEnemies += number;
+    }
+
+    public static int getNumOfEnemies() {
+        return numOfEnemies;
     }
 }

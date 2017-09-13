@@ -12,6 +12,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
+import java.util.Random;
+
 public class SnakeHead extends GameEntity implements Animatable {
 
     private static float speed = 2;
@@ -73,9 +75,8 @@ public class SnakeHead extends GameEntity implements Animatable {
         setY(getY() + heading.getY());
         laserShoot(dir);
         checkTheCollided();
+
         isGameOver();
-
-
     }
 
     public boolean isReloaded() {

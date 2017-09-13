@@ -34,6 +34,8 @@ public class Laser extends GameEntity implements Animatable {
         for (GameEntity entity : Globals.getGameObjects()) {
             if (getBoundsInParent().intersects(entity.getBoundsInParent())) {
                 if (entity instanceof SimpleEnemy) {
+                    Globals.setNumOfEnemies(-1);
+                    ((SimpleEnemy) entity).checkUnitNumbers();
                     entity.destroy();
                     System.out.println("Good shot!");
                     destroy();
