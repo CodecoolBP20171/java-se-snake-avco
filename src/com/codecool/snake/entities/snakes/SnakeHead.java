@@ -19,7 +19,7 @@ import java.util.HashSet;
 public class SnakeHead extends GameEntity implements Animatable,Interactable {
 
     private float speed = 2;
-    private float maxSpeed = 5;
+    private float maxSpeed = 4;
     private float turnRate = 2;
     private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
