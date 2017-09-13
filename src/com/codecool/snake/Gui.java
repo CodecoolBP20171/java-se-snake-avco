@@ -51,6 +51,7 @@ public class Gui {
         restartButton.setOnAction(event -> restartGame(primaryStage, gameOverStage));
 
         VBox gameOverBox = new VBox(20);
+        gameOverBox.setStyle("-fx-background-color:#fff;");
         Scene gameOverScene = new Scene(gameOverBox, 300, 200);
 
         Text text = new Text();

@@ -18,6 +18,7 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     private static float speed = 2;
     private static float turnRate = 2;
+    private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
     private long lastShotTime;
@@ -26,6 +27,7 @@ public class SnakeHead extends GameEntity implements Animatable {
     private boolean rightKeyDown = false;
     private boolean shoot = false;
     private int length;
+
 
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
@@ -37,6 +39,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         setImage(Globals.snakeHead);
         pane.getChildren().add(this);
         initEventHandlers(pane, leftCode, rightCode, shootCode);
+        snakesAlive++;
 
         addPart(4);
     }
@@ -123,7 +126,12 @@ public class SnakeHead extends GameEntity implements Animatable {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
             System.out.println("Game Over");
-            Gui.gameOverWindow(Main.getPrimaryStage(), length);
+            snakesAlive--;
+            if (snakesAlive == 0) {
+                Gui.gameOverWindow(Main.getPrimaryStage(), length);
+            } else {
+                this.destroy();
+            }
         }
     }
 
