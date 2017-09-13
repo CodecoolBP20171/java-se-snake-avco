@@ -10,6 +10,7 @@ import com.codecool.snake.entities.Interactable;
 import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -169,10 +170,23 @@ public class SnakeHead extends GameEntity implements Animatable {
             snakesAlive--;
             if (snakesAlive == 0) {
                 System.out.println("Game Over");
-                Gui.gameOverWindow(Main.getPrimaryStage(), length);
+                Gui.gameOverWindow(Main.getPrimaryStage(), length - 4);
             } else {
-                this.destroy();
+                destroyAll(tail);
             }
+        }
+    }
+
+    private void destroyAll(GameEntity tail) {
+        GameEntity tailParent;
+        if (tail instanceof SnakeBody) {
+            SnakeBody newTail = (SnakeBody) tail;
+            tailParent = newTail.getTailParent();
+            newTail.destroy();
+            destroyAll(tailParent);
+        } else {
+            tail.destroy();
+            System.out.println("The " + snakeHeadColor + " snake is died");
         }
     }
 

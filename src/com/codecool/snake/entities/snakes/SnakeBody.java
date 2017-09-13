@@ -7,6 +7,7 @@ import com.sun.javafx.geom.Vec2d;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -41,7 +42,6 @@ public class SnakeBody extends GameEntity implements Animatable {
     private void setBodyColor(GameEntity parent) {
         if (parent instanceof SnakeHead) {
             SnakeHead head = (SnakeHead) parent;
-            System.out.println(head.getSnakeHeadColor());
             if (head.getSnakeHeadColor().equals("green")) {
                 bodyImage = Globals.snakeBodyGreen;
             } else {
@@ -62,5 +62,9 @@ public class SnakeBody extends GameEntity implements Animatable {
 
     public Image getBodyImage() {
         return bodyImage;
+    }
+
+    public GameEntity getTailParent() {
+        return parent;
     }
 }
