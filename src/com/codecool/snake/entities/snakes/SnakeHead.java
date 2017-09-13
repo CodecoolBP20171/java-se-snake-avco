@@ -26,6 +26,8 @@ public class SnakeHead extends GameEntity implements Animatable {
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
     private boolean shoot = false;
+    private double dir;
+    private int timer;
     private int length;
 
 
@@ -65,7 +67,7 @@ public class SnakeHead extends GameEntity implements Animatable {
     }
 
     public void step() {
-        double dir = getRotate();
+        dir = getRotate();
         if (leftKeyDown) {
             dir = dir - turnRate;
         }
@@ -74,13 +76,30 @@ public class SnakeHead extends GameEntity implements Animatable {
         }
         // set rotation and position
         setRotate(dir);
+        checkGate();
         Point2D heading = Utils.directionToVector(dir, speed);
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
         laserShoot(dir);
         checkTheCollided();
 
-        isGameOver();
+        //isGameOver();
+    }
+
+    public void checkGate() {
+        if (timer > 0) { timer--; }
+        double gateSize = Globals.WINDOW_HEIGHT / 2;
+        if (getY() > gateSize -50 && getY() < gateSize + 50) {
+            if (getX() > Globals.WINDOW_WIDTH - 5 && timer == 0) {
+                setX(10);
+                dir += 180;
+                timer = 60;
+            } else if (getX() < 5 && timer == 0) {
+                setX(Globals.WINDOW_WIDTH - 30);
+                dir += 180;
+                timer = 60;
+            }
+        } else { isGameOver(); }
     }
 
     public boolean isReloaded() {
