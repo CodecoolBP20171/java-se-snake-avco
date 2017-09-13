@@ -1,5 +1,6 @@
 package com.codecool.snake;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -7,30 +8,53 @@ import javafx.stage.Stage;
 
 public class Gui {
 
-        public static void popUpWindow(Stage primaryStage){
-            Button restartButton = new Button();
-            Button continueButton = new Button();
-            restartButton.setText("Restart");
-            continueButton.setText("Continue");
-            Stage dialog = new Stage();
-            Globals.gameLoop.stop();
-            continueButton.setOnAction(event -> {
-                continueTheGame(dialog);
-            });
-            restartButton.setOnAction(event -> {
-                restartGame(primaryStage, dialog);
-            });
-            VBox dialogVbox = new VBox(20);
-            Scene dialogScene = new Scene(dialogVbox, 300, 200);
+    public static void popUpWindow(Stage primaryStage) {
+        Button restartButton = new Button();
+        Button continueButton = new Button();
+        restartButton.setText("Restart");
+        continueButton.setText("Continue");
+        Stage dialog = new Stage();
+        Globals.gameLoop.stop();
+        continueButton.setOnAction(event -> {
+            continueTheGame(dialog);
+        });
+        restartButton.setOnAction(event -> {
+            restartGame(primaryStage, dialog);
+        });
+        VBox dialogVbox = new VBox(20);
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
 
-            dialogVbox.getChildren().add(restartButton);
-            dialogVbox.getChildren().add(continueButton);
+        dialogVbox.getChildren().add(restartButton);
+        dialogVbox.getChildren().add(continueButton);
 
-            dialog.initOwner(primaryStage);
-            dialog.setScene(dialogScene);
-            dialog.show();
-            dialog.setOnCloseRequest(event -> Globals.gameLoop.start());
-        }
+        dialog.initOwner(primaryStage);
+        dialog.setScene(dialogScene);
+        dialog.show();
+        dialog.setOnCloseRequest(event -> Globals.gameLoop.start());
+    }
+
+    public static void gameOverWindow(Stage primaryStage) {
+        Button restartButton = new Button();
+        Button exitButton = new Button();
+        restartButton.setText("Restart");
+        exitButton.setText("Exit");
+
+        Stage gameOverStage = new Stage();
+        Globals.gameLoop.stop();
+        exitButton.setOnAction(event -> Platform.exit());
+        restartButton.setOnAction(event -> restartGame(primaryStage, gameOverStage));
+
+        VBox gameOverBox = new VBox(20);
+        Scene gameOverScene = new Scene(gameOverBox, 300, 200);
+
+        gameOverBox.getChildren().add(restartButton);
+        gameOverBox.getChildren().add(exitButton);
+
+        gameOverStage.initOwner(primaryStage);
+        gameOverStage.setScene(gameOverScene);
+        gameOverStage.show();
+        gameOverStage.setOnCloseRequest(event -> Platform.exit());
+    }
 
     private static void continueTheGame(Stage dialog) {
         dialog.close();
