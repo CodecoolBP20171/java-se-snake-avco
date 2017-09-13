@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -16,6 +17,11 @@ import javafx.stage.Stage;
 
 public class Gui {
 
+    public static void createHealthBar(ProgressBar progressBar, int snakeHealth) {
+        progressBar.setProgress((double) snakeHealth /100);
+
+
+    }
 
     public static void popUpWindow(Stage primaryStage) {
         Stage dialog = new Stage();
@@ -68,7 +74,7 @@ public class Gui {
 
         createRestartButton(primaryStage ,gameOverStage, gameOverBox);
         createExitButton(gameOverBox);
-        
+
         gameOverStage.initOwner(primaryStage);
         gameOverStage.setScene(gameOverScene);
         gameOverStage.show();

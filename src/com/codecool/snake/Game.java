@@ -11,16 +11,15 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
-import java.awt.*;
 
 public class Game extends Pane {
 
     public void start() {
         SnakeHead snake =  new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP);
-        //SnakeHead snake2 =  new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
+        SnakeHead snake2 =  new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
 
         Globals.players.add(snake);
-        //Globals.players.add(snake2);
+        Globals.players.add(snake2);
 
         Globals.SimpleEnemies.add(Globals.simpleEnemy);
         Globals.SimpleEnemies.add(Globals.simpleEnemy1);
