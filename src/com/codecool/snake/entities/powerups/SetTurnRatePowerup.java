@@ -16,6 +16,7 @@ public class SetTurnRatePowerup extends Powerup {
     @Override
     public void apply(SnakeHead snakeHead) {
         this.turnRate = snakeHead.getTurnRate();
+        increaseScore(snakeHead);
         turnRate++;
         snakeHead.setTurnRate(turnRate);
         destroy();

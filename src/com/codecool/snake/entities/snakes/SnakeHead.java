@@ -7,6 +7,7 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
 import javafx.geometry.Point2D;
@@ -31,8 +32,8 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
     private double dir;
     private int timer;
     private int length;
-
-
+    private SimpleStringProperty score = new SimpleStringProperty("Score: 0");
+    private int intScore;
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
         super(pane);
@@ -44,7 +45,6 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         pane.getChildren().add(this);
         initEventHandlers(pane, leftCode, rightCode, shootCode);
         snakesAlive++;
-
         addPart(4);
     }
 
@@ -93,11 +93,11 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         double gateSize = Globals.WINDOW_HEIGHT / 2;
         if (getY() > gateSize -50 && getY() < gateSize + 50) {
             if (getX() > Globals.WINDOW_WIDTH - 5 && timer == 0) {
-                setX(10);
+                setX(0);
                 dir += 180;
                 timer = 60;
             } else if (getX() < 5 && timer == 0) {
-                setX(Globals.WINDOW_WIDTH - 30);
+                setX(Globals.WINDOW_WIDTH);
                 dir += 180;
                 timer = 60;
             }
@@ -150,6 +150,7 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
             System.out.println("Game Over");
+            Globals.players.remove(this);
             snakesAlive--;
             if (snakesAlive == 0) {
                 Gui.gameOverWindow(Main.getPrimaryStage(), length);
@@ -157,6 +158,15 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
                 this.destroy();
             }
         }
+    }
+
+    public void setScore() {
+        intScore++;
+        score.setValue("Score: " + Integer.toString(intScore));
+    }
+
+    public SimpleStringProperty getScore() {
+        return score;
     }
 
     private void initEventHandlers(Pane pane, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
