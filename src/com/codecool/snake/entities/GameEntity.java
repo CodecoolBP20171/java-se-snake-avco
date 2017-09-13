@@ -1,9 +1,6 @@
 package com.codecool.snake.entities;
 
 import com.codecool.snake.Globals;
-import com.codecool.snake.entities.enemies.AdvancedEnemy;
-import com.codecool.snake.entities.enemies.NotSoSimpleEnemy;
-import com.codecool.snake.entities.enemies.SimpleEnemy;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
