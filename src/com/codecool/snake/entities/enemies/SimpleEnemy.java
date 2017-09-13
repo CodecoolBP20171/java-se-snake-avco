@@ -32,7 +32,7 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
 
     public void setValidPosition() {
         speed = 1;
-        charSize = 30;
+        charSize = 40;
         while (true) {
             double xPos = (double) rnd.nextInt((int) (Globals.WINDOW_WIDTH - charSize) - charSize + 1) + charSize;
             double yPos = (double) rnd.nextInt((int) (Globals.WINDOW_HEIGHT - charSize) - charSize + 1) + charSize;
