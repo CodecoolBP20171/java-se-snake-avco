@@ -86,9 +86,8 @@ public class Gui {
     }
 
     private static void restartGame(Stage primaryStage, Stage dialog) {
+        dialog.close();
         new Main().start(primaryStage);
-        continueTheGame(dialog);
-        Globals.clearGameObjects();
     }
 }
 
