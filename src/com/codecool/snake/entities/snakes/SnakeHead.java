@@ -167,7 +167,9 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
 
     @Override
     public void apply(SnakeHead snakeHead) {
-
+        if (this != snakeHead) {
+            Globals.gameLoop.stop();
+        }
     }
 
     @Override
