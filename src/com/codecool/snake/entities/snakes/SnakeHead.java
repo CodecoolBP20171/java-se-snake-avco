@@ -177,4 +177,7 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         return null;
     }
 
+    public GameEntity getTail() {
+        return tail;
+    }
 }
