@@ -31,6 +31,7 @@ public class SnakeHead extends GameEntity implements Animatable {
     private int timer;
     private int length;
     private static int progressBarPosition = 20;
+    private static String progressBarColor = " -fx-accent: red; ";
     private ProgressBar progressBar = new ProgressBar(1);
 
 
@@ -50,7 +51,13 @@ public class SnakeHead extends GameEntity implements Animatable {
 
         addPart(4);
         progressBarPosition = (int) Globals.WINDOW_WIDTH - health - 20;
-        progressBar.setStyle("-fx-control-inner-background: red; -fx-accent: green");
+        progressBar.setStyle("" +
+                        "-fx-control-inner-background: white;" +
+                progressBarColor +
+                "-fx-fill:null;" +
+                "-fx-padding: 0 0 -16 0;"
+                );
+        progressBarColor = " -fx-accent: blue; ";
     }
 
     public static float getTurnRate() {
