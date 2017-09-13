@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 
 public class SetTurnRatePowerup extends Powerup {
 
-    private static float turnRate = SnakeHead.getTurnRate();
+    private float turnRate;
 
     public SetTurnRatePowerup(Pane pane) {
         super(pane);
@@ -15,6 +15,7 @@ public class SetTurnRatePowerup extends Powerup {
 
     @Override
     public void apply(SnakeHead snakeHead) {
+        this.turnRate = snakeHead.getTurnRate();
         turnRate++;
         snakeHead.setTurnRate(turnRate);
         destroy();
@@ -22,6 +23,6 @@ public class SetTurnRatePowerup extends Powerup {
 
     @Override
     public String getMessage() {
-        return "You can turn faster! Current turn rate is: " + SnakeHead.getTurnRate();
+        return "You can turn faster! Current turn rate is: " + turnRate;
     }
 }
