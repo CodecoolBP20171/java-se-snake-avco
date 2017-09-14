@@ -38,6 +38,7 @@ public class SetTurnRatePowerup extends Powerup {
         }
 
         destroy();
+        decreaseNumberOfPowerups();
     }
 
     @Override

@@ -13,14 +13,18 @@ import java.util.*;
 public abstract class Powerup extends GameEntity implements Interactable {
 
     private Queue<Vec2d> history = new LinkedList<>();
+    private static int numberOfPowerups;
+    private static Set<GameEntity> powerups = new HashSet<>();
 
     public Powerup(Pane pane) {
         super(pane);
         pane.getChildren().add(this);
+        powerups.add(this);
 
         Random rnd = new Random();
         setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
         setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
+        numberOfPowerups++;
     }
 
     @Override
@@ -28,6 +32,18 @@ public abstract class Powerup extends GameEntity implements Interactable {
 
     @Override
     public abstract String getMessage();
+
+    public static Set<GameEntity> getPowerups() {
+        return powerups;
+    }
+
+    public static void decreaseNumberOfPowerups() {
+        Powerup.numberOfPowerups--;
+    }
+
+    public static int getNumberOfPowerups() {
+        return numberOfPowerups;
+    }
 
     public void setHistory(SnakeHead snakeHead) {
         SnakeBody tailOfSnake = (SnakeBody) snakeHead.getTail();
@@ -51,4 +67,6 @@ public abstract class Powerup extends GameEntity implements Interactable {
     public void increaseScore(SnakeHead snake) {
         snake.setScore();
     }
+
+
 }

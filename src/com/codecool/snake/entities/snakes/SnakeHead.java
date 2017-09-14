@@ -7,6 +7,7 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
+import com.codecool.snake.entities.powerups.Powerup;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
@@ -16,7 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-import java.util.HashSet;
+import java.util.*;
 
 public class SnakeHead extends GameEntity implements Animatable,Interactable {
 
@@ -105,8 +106,26 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         setY(getY() + heading.getY());
         laserShoot(dir);
         checkTheCollided();
+        addPowerUpsRandomly();
 
         //isGameOver();
+    }
+
+    private void addPowerUpsRandomly() {
+        Random random = new Random();
+        int maxNumberOfPowerups = 4;
+        int numberOfNewPowerUps = random.nextInt(maxNumberOfPowerups);
+        int indexOfNewPowerUp;
+
+        List<GameEntity> powerupList = new ArrayList<>();
+        powerupList.addAll(Powerup.getPowerups());
+
+        if (Powerup.getNumberOfPowerups() < 2) {
+            indexOfNewPowerUp = random.nextInt(powerupList.size());
+            for (int i = 0; i < numberOfNewPowerUps ; i++) {
+                powerupList.get(indexOfNewPowerUp); //HOZZÁ KELL ADNI VALAHOL A JÁTÉKHOZ EZEKET
+            }
+        }
     }
 
     public void checkGate() {
