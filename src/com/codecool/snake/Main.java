@@ -35,6 +35,7 @@ public class Main extends Application {
         Scene scene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
 
         Gui.chooseTheme(game);
+
         primaryStage.setScene(scene);
         primaryStage.show();
 

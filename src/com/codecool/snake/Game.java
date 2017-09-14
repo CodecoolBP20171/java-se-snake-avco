@@ -28,7 +28,6 @@ public class Game extends Pane {
         Globals.SimpleEnemies.add(Globals.simpleEnemy2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy3);
 
-
         Label score = new Label();
         score.textProperty().bind(snake1.getScore());
         score.setLayoutX(180);
@@ -42,8 +41,6 @@ public class Game extends Pane {
         score2.setLayoutY(20);
         score2.setFont(new Font(24));
         this.getChildren().add(score2);
-
-
 
         int numberOfPowerups = 1;
         for (int i = 0; i < numberOfPowerups ; i++) {

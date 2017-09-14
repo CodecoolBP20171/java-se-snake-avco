@@ -6,15 +6,16 @@ import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.Interactable;
 import com.sun.javafx.geom.Vec2d;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-
 import java.util.*;
 
 public class SnakeBody extends GameEntity implements Animatable, Interactable {
 
     private GameEntity parent;
     private Queue<Vec2d> history = new LinkedList<>();
-    private int historySize = 10;
+    private static final int historySize = 10;
+    private Image bodyImage;
     private List<GameEntity> snakeParts = new ArrayList<>();
 
     public SnakeBody(Pane pane, GameEntity parent) {
@@ -27,7 +28,9 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
         }
         snakeParts.add(this);
         this.parent = parent;
-        setImage(Globals.snakeBody);
+
+        setBodyColor(parent);
+        setImage(bodyImage);
 
         // place it visually below the current tail
         List<Node> children = pane.getChildren();
@@ -42,6 +45,20 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
         }
     }
 
+    private void setBodyColor(GameEntity parent) {
+        if (parent instanceof SnakeHead) {
+            SnakeHead head = (SnakeHead) parent;
+            if (head.getSnakeHeadColor().equals("green")) {
+                bodyImage = Globals.snakeBodyGreen;
+            } else {
+                bodyImage = Globals.snakeBodyRed;
+            }
+        } else {
+            SnakeBody bodyPart = (SnakeBody) parent;
+            bodyImage = bodyPart.getBodyImage();
+        }
+    }
+
     public List<GameEntity> getSnakeParts() {
         return snakeParts;
     }
@@ -51,6 +68,14 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
         setX(pos.x);
         setY(pos.y);
         history.add(new Vec2d(parent.getX(), parent.getY())); // add the parent's current position to the beginning of the history
+    }
+
+    public Image getBodyImage() {
+        return bodyImage;
+    }
+
+    public GameEntity getTailParent() {
+        return parent;
     }
 
     @Override
@@ -78,3 +103,4 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
         history.poll();
     }
 }
+

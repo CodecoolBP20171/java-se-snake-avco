@@ -5,19 +5,20 @@ import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 // class for holding all static stuff
 public class Globals {
 
-    public static final double WINDOW_WIDTH = 600;
+    public static final double WINDOW_WIDTH = 900;
     public static final double WINDOW_HEIGHT = 600;
 
-    public static Image snakeHead = new Image("snake_head.png");
-    public static Image snakeBody = new Image("snake_body.png");
+    public static Image snakeHeadGreen = new Image("snake_head_green.png");
+    public static Image snakeBodyGreen = new Image("snake_body_green.png");
+    public static Image snakeHeadRed = new Image("snake_head_red.png");
+    public static Image snakeBodyRed = new Image("snake_body_red.png");
     public static Image simpleEnemy = new Image("simple_enemy.png");
     public static Image simpleEnemy1 = new Image("simple_enemy_1.png");
     public static Image simpleEnemy2 = new Image("simple_enemy_2.png");
@@ -39,12 +40,14 @@ public class Globals {
     public static GameLoop gameLoop;
     public static List<SnakeHead> players;
     static int numOfEnemies;
+    public static HashMap<String, Integer> scoreList;
 
     static {
         gameObjects = new LinkedList<>();
         newGameObjects = new LinkedList<>();
         oldGameObjects = new LinkedList<>();
         players = new ArrayList<>();
+        scoreList = new HashMap<>();
     }
 
     public static void addGameObject(GameEntity toAdd) {
