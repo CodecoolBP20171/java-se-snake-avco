@@ -119,7 +119,9 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
     public void addPowerUpsRandomly() {
         long currentTime = System.currentTimeMillis();
         Random random = new Random();
-        int randomTimeToCreatePowerups = random.nextInt(1700) + 1000;
+        int minTime = 1000;
+        int maxTime = 2000;
+        int randomTimeToCreatePowerups = random.nextInt(maxTime) + minTime;
 
         if ((timeOfLastCreatedPowerups + randomTimeToCreatePowerups) < currentTime) {
             int maxNumberOfPowerups = 2;
