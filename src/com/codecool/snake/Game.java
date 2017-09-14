@@ -16,21 +16,26 @@ import javafx.scene.text.Font;
 
 
 public class Game extends Pane {
+    private int numberOfPlayers = 0;
+
+    public Game(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
 
     public void start() {
-        SnakeHead snake1 =  new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, "red");
-        SnakeHead snake2 =  new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W, "blue");
+        int counter = 200;
+        for (int i = 0; i < numberOfPlayers; i++) {
+
+            Globals.players.add(new SnakeHead(this, counter, 500, KeyCode.A, KeyCode.D, KeyCode.W, "blue"));
+            counter+=200;
+        }
 
 
-        addProgressBar();
-        Globals.players.add(snake1);
-        Globals.players.add(snake2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy);
         Globals.SimpleEnemies.add(Globals.simpleEnemy1);
         Globals.SimpleEnemies.add(Globals.simpleEnemy2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy3);
 
-        Gui.createScoreBar();
 
         int numberOfPowerups = 1;
         for (int i = 0; i < numberOfPowerups ; i++) {
@@ -50,11 +55,13 @@ public class Game extends Pane {
                 oldKeyPressedHandler.handle(event);
             }
             if (event.getCode() == KeyCode.ESCAPE) {
-                Gui.popUpWindow(Main.getPrimaryStage());
+                Gui.popUpWindow();
             }
 
         });
 
+        addScoreBard();
+        addProgressBar();
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
     }
@@ -75,5 +82,8 @@ public class Game extends Pane {
             progressBar.setLayoutY(y);
             this.getChildren().add(progressBar);
         }
+    }
+    private void addScoreBard(){
+        Gui.createScoreBar(this);
     }
 }

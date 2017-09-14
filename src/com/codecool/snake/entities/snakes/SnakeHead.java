@@ -187,7 +187,7 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
             Globals.players.remove(this);
             snakesAlive--;
             if (snakesAlive == 0) {
-                Gui.gameOverWindow(Main.getPrimaryStage(), length);
+                Gui.gameOverWindow(length);
             } else {
                 this.destroy();
             }

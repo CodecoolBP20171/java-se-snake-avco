@@ -19,19 +19,66 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.objects.Global;
 
+import java.util.HashMap;
+
 public class Gui {
+    private static Stage primaryStage;
+    public static HashMap<String,Button> buttons = new HashMap<>();
+
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public static void setPrimaryStage(Stage primaryStage) {
+        Gui.primaryStage = primaryStage;
+    }
+    public static Stage createStartWindow(){
+        Stage initialise = new Stage();
+        GridPane root = new GridPane();
+        Button onePlayerButton = new Button("1 Player");
+        Button twoPlayerButton = new Button("2 Players");
+        initialise.setTitle("Start new game");
+
+        ImageView pic = new ImageView();
+        ImageView pic1 = new ImageView();
+        Line corridor = new Line(200, 0, 200, 200);
+
+        pic.setFitHeight(130);
+        pic.setFitWidth(130);
+        pic1.setFitHeight(130);
+        pic1.setFitWidth(130);
+        pic.setImage(Globals.snakeProf);
+        pic1.setImage(Globals.snakeDoubleProf);
+
+        root.add(pic, 0, 0, 1, 1);
+        root.add(onePlayerButton, 0, 1 ,1,1);
+        root.add(pic1, 3, 0, 1, 1);
+        root.add(twoPlayerButton, 3, 1, 1, 1);
+        root.add(corridor, 2, 0, 1, 1);
+        root.setHgap(30);
+        root.setVgap(70);
+        buttons.put("createStartWindowonPlayerButton",onePlayerButton);
+        buttons.put("createStartWindowtwoPlayerButton",twoPlayerButton);
+        Scene preScene = new Scene(root, 350, 400);
+        initialise.setScene(preScene);
+        initialise.show();
+
+        return initialise;
+    }
+
 
     public static void createHealthBar(ProgressBar progressBar, int snakeHealth) {
         progressBar.setProgress((double) snakeHealth /100);
     }
 
-    public static void popUpWindow(Stage primaryStage) {
+    public static void popUpWindow() {
         Stage dialog = new Stage();
         VBox dialogVbox = new VBox(20);
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        createRestartButton(primaryStage, dialog, dialogVbox);
+        createRestartButton(dialog, dialogVbox);
         createContinueButton(dialog, dialogVbox);
-        dialog.initOwner(primaryStage);
+        dialog.initOwner(Gui.primaryStage);
         dialog.setScene(dialogScene);
         dialog.show();
         dialog.setOnCloseRequest(event -> Globals.gameLoop.start());
@@ -55,7 +102,7 @@ public class Gui {
         game.getChildren().add(gate2);
     }
 
-    public static void gameOverWindow(Stage primaryStage, int length) {
+    public static void gameOverWindow(int length) {
         Globals.gameLoop.stop();
         Stage gameOverStage = new Stage();
 
@@ -74,10 +121,10 @@ public class Gui {
 
         gameOverBox.setAlignment(Pos.CENTER);
 
-        createRestartButton(primaryStage ,gameOverStage, gameOverBox);
+        createRestartButton(gameOverStage, gameOverBox);
         createExitButton(gameOverBox);
 
-        gameOverStage.initOwner(primaryStage);
+        gameOverStage.initOwner(Gui.primaryStage);
         gameOverStage.setScene(gameOverScene);
         gameOverStage.show();
         gameOverStage.setOnCloseRequest(event -> Platform.exit());
@@ -93,10 +140,10 @@ public class Gui {
         vBox.getChildren().add(continueButton);
     }
 
-    private static void createRestartButton(Stage primaryStage, Stage stage, VBox dialogVbox) {
+    private static void createRestartButton(Stage stage, VBox dialogVbox) {
         Button restartButton = new Button();
         restartButton.setText("Restart");
-        restartButton.setOnAction(event -> restartGame(primaryStage, stage));
+        restartButton.setOnAction(event -> restartGame(stage));
         dialogVbox.getChildren().add(restartButton);
     }
 
@@ -112,19 +159,19 @@ public class Gui {
         Globals.gameLoop.start();
     }
 
-    private static void restartGame(Stage primaryStage, Stage dialog) {
-        new Main().start(primaryStage);
+    private static void restartGame( Stage dialog) {
+        new Main().start(Gui.primaryStage);
         continueTheGame(dialog);
         Globals.clearGameObjects();
     }
 
-    public static void createScoreBar() {
+    public static void createScoreBar(Game game) {
         Label score = new Label();
         score.textProperty().bind(Globals.players.get(0).getScore());
         score.setLayoutX(180);
         score.setLayoutY(20);
         score.setFont(new Font(24));
-        Main.getGAME().getChildren().add(score);
+        game.getChildren().add(score);
 
         if (Globals.players.size() > 1) {
             Label score2 = new Label();
@@ -132,7 +179,7 @@ public class Gui {
             score2.setLayoutX(Globals.WINDOW_WIDTH - 280);
             score2.setLayoutY(20);
             score2.setFont(new Font(24));
-            Main.getGAME().getChildren().add(score2);
+            game.getChildren().add(score2);
         }
     }
 }
