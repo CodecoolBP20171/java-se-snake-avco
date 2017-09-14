@@ -8,23 +8,41 @@ import com.codecool.snake.entities.powerups.SetLengthPowerup;
 import com.codecool.snake.entities.powerups.SetTurnRatePowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 
 
 public class Game extends Pane {
 
     public void start() {
-        SnakeHead snake =  new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP);
+        SnakeHead snake1 =  new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP);
         SnakeHead snake2 =  new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
 
-        Globals.players.add(snake);
+        Globals.players.add(snake1);
         Globals.players.add(snake2);
 
         Globals.SimpleEnemies.add(Globals.simpleEnemy);
         Globals.SimpleEnemies.add(Globals.simpleEnemy1);
         Globals.SimpleEnemies.add(Globals.simpleEnemy2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy3);
+
+
+        Label score = new Label();
+        score.textProperty().bind(snake1.getScore());
+        score.setLayoutX(180);
+        score.setLayoutY(20);
+        score.setFont(new Font(24));
+        this.getChildren().add(score);
+
+        Label score2 = new Label();
+        score2.textProperty().bind(snake2.getScore());
+        score2.setLayoutX(Globals.WINDOW_WIDTH - 280);
+        score2.setLayoutY(20);
+        score2.setFont(new Font(24));
+        this.getChildren().add(score2);
+
 
 
         int numberOfPowerups = 1;
@@ -49,7 +67,6 @@ public class Game extends Pane {
             }
 
         });
-
 
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();

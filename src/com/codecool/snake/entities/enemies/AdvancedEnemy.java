@@ -27,6 +27,14 @@ public class AdvancedEnemy extends SimpleEnemy {
 
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
+
+        if (!Globals.players.contains(snake)) {
+            if (!Globals.players.isEmpty()) {
+                snake = Globals.players.get(0);
+            } else {
+                destroy();
+            }
+        }
     }
 
 }

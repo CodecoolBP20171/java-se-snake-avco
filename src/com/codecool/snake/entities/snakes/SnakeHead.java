@@ -7,6 +7,7 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
 import javafx.geometry.Point2D;
@@ -15,10 +16,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-public class SnakeHead extends GameEntity implements Animatable {
+import java.util.HashSet;
 
-    private static float speed = 2;
-    private static float turnRate = 2;
+public class SnakeHead extends GameEntity implements Animatable,Interactable {
+
+    private float speed = 2;
+    private float maxSpeed = 4;
+    private float turnRate = 2;
     private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
@@ -30,10 +34,11 @@ public class SnakeHead extends GameEntity implements Animatable {
     private double dir;
     private int timer;
     private int length;
+    private SimpleStringProperty score = new SimpleStringProperty("Score: 0");
+    private int intScore;
     private static int progressBarPosition = 20;
     private static String progressBarColor = " -fx-accent: red; ";
     private ProgressBar progressBar = new ProgressBar(1);
-
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
         super(pane);
@@ -60,19 +65,23 @@ public class SnakeHead extends GameEntity implements Animatable {
         progressBarColor = " -fx-accent: blue; ";
     }
 
-    public static float getTurnRate() {
+    public float getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public float getTurnRate() {
         return turnRate;
     }
 
-    public static void setTurnRate(float turnRate) {
-        SnakeHead.turnRate = turnRate;
+    public void setTurnRate(float turnRate) {
+        this.turnRate = turnRate;
     }
 
-    public static void setSpeed(float speed) {
-        SnakeHead.speed = speed;
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
-    public static float getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
@@ -107,11 +116,11 @@ public class SnakeHead extends GameEntity implements Animatable {
         double gateSize = Globals.WINDOW_HEIGHT / 2;
         if (getY() > gateSize - 50 && getY() < gateSize + 50) {
             if (getX() > Globals.WINDOW_WIDTH - 5 && timer == 0) {
-                setX(10);
+                setX(0);
                 dir += 180;
                 timer = 60;
             } else if (getX() < 5 && timer == 0) {
-                setX(Globals.WINDOW_WIDTH - 30);
+                setX(Globals.WINDOW_WIDTH);
                 dir += 180;
                 timer = 60;
             }
@@ -155,6 +164,9 @@ public class SnakeHead extends GameEntity implements Animatable {
         }
     }
 
+    public HashSet<GameEntity> getSnakeParts() {
+        return null;
+    }
     public void changeHealth(int diff) {
         if (diff < 0) {
             health += diff;
@@ -174,6 +186,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
             System.out.println("Game Over");
+            Globals.players.remove(this);
             snakesAlive--;
             if (snakesAlive == 0) {
                 Gui.gameOverWindow(Main.getPrimaryStage(), length);
@@ -181,6 +194,15 @@ public class SnakeHead extends GameEntity implements Animatable {
                 this.destroy();
             }
         }
+    }
+
+    public void setScore() {
+        intScore++;
+        score.setValue("Score: " + Integer.toString(intScore));
+    }
+
+    public SimpleStringProperty getScore() {
+        return score;
     }
 
     private void initEventHandlers(Pane pane, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
@@ -220,4 +242,19 @@ public class SnakeHead extends GameEntity implements Animatable {
         });
     }
 
+    @Override
+    public void apply(SnakeHead snakeHead) {
+        if (this != snakeHead) {
+            Globals.gameLoop.stop();
+        }
+    }
+
+    @Override
+    public String getMessage() {
+        return null;
+    }
+
+    public GameEntity getTail() {
+        return tail;
+    }
 }

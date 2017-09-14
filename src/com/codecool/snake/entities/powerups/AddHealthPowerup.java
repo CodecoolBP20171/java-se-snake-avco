@@ -13,6 +13,7 @@ public class AddHealthPowerup extends Powerup{
 
     @Override
     public void apply(SnakeHead snakeHead) {
+        increaseScore(snakeHead);
         snakeHead.changeHealth(10);
         destroy();
     }

@@ -2,7 +2,13 @@ package com.codecool.snake;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.objects.Global;
 
 public class Main extends Application {
 
