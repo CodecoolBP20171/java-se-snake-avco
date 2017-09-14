@@ -18,10 +18,10 @@ public class Game extends Pane {
 
     public void start() {
         SnakeHead snake1 =  new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP);
-        SnakeHead snake2 =  new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
+//        SnakeHead snake2 =  new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
 
         Globals.players.add(snake1);
-        Globals.players.add(snake2);
+//        Globals.players.add(snake2);
 
         Globals.SimpleEnemies.add(Globals.simpleEnemy);
         Globals.SimpleEnemies.add(Globals.simpleEnemy1);
@@ -37,7 +37,7 @@ public class Game extends Pane {
         this.getChildren().add(score);
 
         Label score2 = new Label();
-        score2.textProperty().bind(snake2.getScore());
+//        score2.textProperty().bind(snake2.getScore());
         score2.setLayoutX(Globals.WINDOW_WIDTH - 280);
         score2.setLayoutY(20);
         score2.setFont(new Font(24));

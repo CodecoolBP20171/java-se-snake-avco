@@ -7,7 +7,10 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
+import com.codecool.snake.entities.powerups.AddHealthPowerup;
 import com.codecool.snake.entities.powerups.Powerup;
+import com.codecool.snake.entities.powerups.SetLengthPowerup;
+import com.codecool.snake.entities.powerups.SetTurnRatePowerup;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
@@ -40,6 +43,7 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
     private static int progressBarPosition = 20;
     private static String progressBarColor = " -fx-accent: red; ";
     private ProgressBar progressBar = new ProgressBar(1);
+    private long timeOfLastCreatedPowerups;
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
         super(pane);
@@ -48,6 +52,7 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         setX(xc);
         setY(yc);
         setImage(Globals.snakeHead);
+        timeOfLastCreatedPowerups = System.currentTimeMillis();
         pane.getChildren().add(this);
         initEventHandlers(pane, leftCode, rightCode, shootCode);
         snakesAlive++;
@@ -111,19 +116,34 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         //isGameOver();
     }
 
-    private void addPowerUpsRandomly() {
+    public void addPowerUpsRandomly() {
+        long currentTime = System.currentTimeMillis();
         Random random = new Random();
-        int maxNumberOfPowerups = 4;
-        int numberOfNewPowerUps = random.nextInt(maxNumberOfPowerups);
-        int indexOfNewPowerUp;
+        int randomTimeToCreatePowerups = random.nextInt(1700) + 1000;
 
-        List<GameEntity> powerupList = new ArrayList<>();
-        powerupList.addAll(Powerup.getPowerups());
+        if ((timeOfLastCreatedPowerups + randomTimeToCreatePowerups) < currentTime) {
+            int maxNumberOfPowerups = 2;
+            int numberOfNewPowerUps = random.nextInt(maxNumberOfPowerups)+1;
+            int numberOfPowerupTypes = 3;
+            int option;
+            timeOfLastCreatedPowerups = System.currentTimeMillis();
 
-        if (Powerup.getNumberOfPowerups() < 2) {
-            indexOfNewPowerUp = random.nextInt(powerupList.size());
-            for (int i = 0; i < numberOfNewPowerUps ; i++) {
-                powerupList.get(indexOfNewPowerUp); //HOZZÁ KELL ADNI VALAHOL A JÁTÉKHOZ EZEKET
+            if (Powerup.getNumberOfPowerups() < 3) {
+                for (int i = 0; i < numberOfNewPowerUps ; i++) {
+                    option = random.nextInt(numberOfPowerupTypes);
+
+                    switch (option) {
+                        case 0:
+                            new AddHealthPowerup(pane);
+                            break;
+                        case 1:
+                            new SetLengthPowerup(pane);
+                            break;
+                        case 2:
+                            new SetTurnRatePowerup(pane);
+                            break;
+                    }
+                }
             }
         }
     }

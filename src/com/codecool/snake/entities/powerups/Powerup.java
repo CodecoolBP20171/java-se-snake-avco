@@ -14,16 +14,17 @@ public abstract class Powerup extends GameEntity implements Interactable {
 
     private Queue<Vec2d> history = new LinkedList<>();
     private static int numberOfPowerups;
-    private static Set<GameEntity> powerups = new HashSet<>();
 
     public Powerup(Pane pane) {
         super(pane);
         pane.getChildren().add(this);
-        powerups.add(this);
 
         Random rnd = new Random();
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
+        int charSize = 40;
+        double xPos = (double) rnd.nextInt((int) (Globals.WINDOW_WIDTH - charSize) - charSize + 1) + charSize;
+        double yPos = (double) rnd.nextInt((int) (Globals.WINDOW_HEIGHT - charSize) - charSize + 1) + charSize;
+        setX(xPos);
+        setY(yPos);
         numberOfPowerups++;
     }
 
@@ -32,10 +33,6 @@ public abstract class Powerup extends GameEntity implements Interactable {
 
     @Override
     public abstract String getMessage();
-
-    public static Set<GameEntity> getPowerups() {
-        return powerups;
-    }
 
     public static void decreaseNumberOfPowerups() {
         Powerup.numberOfPowerups--;
