@@ -62,15 +62,15 @@ public class Game extends Pane {
     }
 
     private void createSnakes(int numberOfSnakes) {
-        int x = 100;                                                        
+        int x = 100;
         int y = 100;
         int z = 0;
         for (int i = 0; i < numberOfSnakes; i++) {
             switch (i){
-                case 0 : x = 100 ; y = 100; z = 180;break;
-                case 1 :  x = 1400; y = 100; z = 180;break;
-                case 2 :   x = 100; y = 700; z = 0; break;
-                case 3 :   x = 1400; y = 700; z = 0; break;
+                case 0 :  x = 100; y = 100; z = 180; break;
+                case 1 :  x = 800; y = 100; z = 180; break;
+                case 2 :  x = 100; y = 500; z = 0; break;
+                case 3 :  x = 800; y = 500; z = 0; break;
             }
             Globals.players.add(new SnakeHead(this, x, y,z));
         }

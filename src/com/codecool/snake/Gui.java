@@ -74,7 +74,7 @@ public class Gui {
         start.setAlignment(Pos.BOTTOM_CENTER);
         start.setPadding(new Insets(20));
         vBox.getChildren().addAll(playerNumberBox,start);
-        vBox.setStyle("-fx-background-color: deepskyblue;");
+        vBox.setStyle("-fx-background-color: lightblue;");
         buttons.put("startButton",startButton);
         buttons.put("leftButton",leftButton);
         buttons.put("rightButton",rightButton);

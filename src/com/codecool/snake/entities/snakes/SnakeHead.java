@@ -57,7 +57,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         setY(yc);
         setRotate(zc);
         pane.getChildren().add(this);
-        ArrayList<KeyCode> snakeControl = this.snakeControls.get(usedSnakeControl);
+        ArrayList<KeyCode> snakeControl = snakeControls.get(usedSnakeControl);
         color = colors.get(usedSnakeControl);
         System.out.println(color);
         leftCode = snakeControl.get(0);
@@ -102,7 +102,6 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         keys.add(KeyCode.I);
         snakeControls.add(keys);
 
-
         colors.add("red");
         colors.add("green");
         colors.add("blue");
@@ -112,8 +111,6 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         snakeHeadColor.put("green", new Image("snake_head_green.png"));
         snakeHeadColor.put("blue", new Image("snake_head_blue.png"));
         snakeHeadColor.put("yellow", new Image("snake_head_yellow.png"));
-
-
     }
 
     public float getTurnRate() {
@@ -157,6 +154,8 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         setY(getY() + heading.getY());
         laserShoot(dir);
         checkTheCollided();
+
+        Globals.scoreList.put(color, intScore);
     }
 
     public void checkGate() {
@@ -255,7 +254,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
             destroyAll(tailParent);
         } else {
             tail.destroy();
-            //System.out.println("The " + snakeHeadColor + " snake is died");
+            System.out.println("The " + color + " snake is died");
         }
     }
 
@@ -308,8 +307,13 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     @Override
     public void apply(SnakeHead snakeHead) {
         if (!this.equals(snakeHead)) {
-            gameOver("tie");
-            System.out.println("Tie");
+            if (Globals.players.size() < 3) {
+                gameOver("tie");
+                System.out.println("Tie");
+            } else {
+                destroyAll(tail);
+                Globals.players.remove(this);
+            }
         }
     }
 

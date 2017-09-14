@@ -13,8 +13,8 @@ import java.util.List;
 // class for holding all static stuff
 public class Globals {
 
-    public static final double WINDOW_WIDTH = 1800;
-    public static final double WINDOW_HEIGHT = 900;
+    public static final double WINDOW_WIDTH = 900;
+    public static final double WINDOW_HEIGHT = 600;
 
 
     public static Image simpleEnemy = new Image("simple_enemy.png");
