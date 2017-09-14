@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -60,6 +62,19 @@ public class Gui {
         HBox playerNumberBox = new HBox(3);
         HBox start = new HBox(1);
 
+
+        HBox keysDesc = new HBox();
+        Text desc = new Text();
+        desc.setText("←↑→↓ | WASD | TFGH | IJLK");
+        desc.setFill(Color.BLUEVIOLET);
+        desc.setFont(Font.font("Verdana", 20));
+        ImageView keys = new ImageView();
+        keys.setFitWidth(100);
+        keys.setFitHeight(100);
+        keys.setImage(new Image("keys.png"));
+        keysDesc.getChildren().addAll(keys, desc);
+        keysDesc.setAlignment(Pos.CENTER);
+
         //pane.setBackground(new Background(new BackgroundImage(startPictures.get(0),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         ImageView imageView = new ImageView();
         leftButton.setPrefSize(100,20);
@@ -77,12 +92,12 @@ public class Gui {
         start.getChildren().add(startButton);
         start.setAlignment(Pos.BOTTOM_CENTER);
         start.setPadding(new Insets(40));
-        vBox.getChildren().addAll(playerNumberBox,start);
+        vBox.getChildren().addAll(playerNumberBox,start,keysDesc);
 
         buttons.put("startButton",startButton);
         buttons.put("leftButton",leftButton);
         buttons.put("rightButton",rightButton);
-        Scene preScene = new Scene(vBox, 400 , 350);
+        Scene preScene = new Scene(vBox, 400 , 450);
         initialise.setScene(preScene);
 
         buttons.put("leftButton",leftButton);
