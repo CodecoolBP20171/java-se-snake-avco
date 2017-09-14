@@ -19,8 +19,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-import java.util.HashSet;
-
 public class SnakeHead extends GameEntity implements Animatable, Interactable {
 
     private float speed = 2;
@@ -137,6 +135,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         laserShoot(dir);
         checkTheCollided();
 
+        Globals.scoreList.put(snakeHeadColor, intScore);
         //isGameOver();
     }
 
@@ -220,9 +219,8 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private void gameOver() {
         if (Globals.players.size() == 1) {
             System.out.println("Game Over");
-            Gui.gameOverWindow(Main.getPrimaryStage(), length - 4);
+            Gui.gameOverWindow(Main.getPrimaryStage());
         } else {
-            Globals.scoreList.put(snakeHeadColor, length - 4);
             destroyAll(tail);
         }
         Globals.players.remove(this);
