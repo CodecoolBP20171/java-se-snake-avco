@@ -7,6 +7,10 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
+import com.codecool.snake.entities.powerups.AddHealthPowerup;
+import com.codecool.snake.entities.powerups.Powerup;
+import com.codecool.snake.entities.powerups.SetLengthPowerup;
+import com.codecool.snake.entities.powerups.SetTurnRatePowerup;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import com.codecool.snake.entities.weapons.Laser;
@@ -18,6 +22,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+
+import java.util.*;
 
 public class SnakeHead extends GameEntity implements Animatable, Interactable {
 
@@ -44,6 +50,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private static int progressBarPosition = 20;
     private static String progressBarColor = " -fx-accent: red; ";
     private ProgressBar progressBar = new ProgressBar(1);
+    private long timeOfLastCreatedPowerups;
 
 
     public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
@@ -55,6 +62,8 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
 
         setSnakeHeadImage();
         setImage(snakeHeadImage);
+
+        timeOfLastCreatedPowerups = System.currentTimeMillis();
 
         pane.getChildren().add(this);
         initEventHandlers(pane, leftCode, rightCode, shootCode);
@@ -134,9 +143,44 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         setY(getY() + heading.getY());
         laserShoot(dir);
         checkTheCollided();
+        addPowerUpsRandomly();
 
         Globals.scoreList.put(snakeHeadColor, intScore);
         //isGameOver();
+    }
+
+    public void addPowerUpsRandomly() {
+        long currentTime = System.currentTimeMillis();
+        Random random = new Random();
+        int minTime = 1000;
+        int maxTime = 2000;
+        int randomTimeToCreatePowerups = random.nextInt(maxTime) + minTime;
+
+        if ((timeOfLastCreatedPowerups + randomTimeToCreatePowerups) < currentTime) {
+            int maxNumberOfPowerups = 2;
+            int numberOfNewPowerUps = random.nextInt(maxNumberOfPowerups) + 1;
+            int numberOfPowerupTypes = 3;
+            int option;
+            timeOfLastCreatedPowerups = System.currentTimeMillis();
+
+            if (Powerup.getNumberOfPowerups() < 3) {
+                for (int i = 0; i < numberOfNewPowerUps; i++) {
+                    option = random.nextInt(numberOfPowerupTypes);
+
+                    switch (option) {
+                        case 0:
+                            new AddHealthPowerup(pane);
+                            break;
+                        case 1:
+                            new SetLengthPowerup(pane);
+                            break;
+                        case 2:
+                            new SetTurnRatePowerup(pane);
+                            break;
+                    }
+                }
+            }
+        }
     }
 
     public void checkGate() {
@@ -188,7 +232,6 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
                 if (entity instanceof Interactable) {
                     Interactable interactable = (Interactable) entity;
                     interactable.apply(this);
-//                    System.out.println(interactable.getMessage());
                 }
             }
         }
@@ -212,12 +255,13 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private void isGameOver() {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
-            gameOver();
+            gameOver("normal");
         }
     }
 
-    private void gameOver() {
-        if (Globals.players.size() == 1) {
+    private void gameOver(String endType) {
+        if (Globals.players.size() == 1 ||
+                (endType.equals("tie"))) {
             System.out.println("Game Over");
             Gui.gameOverWindow(Main.getPrimaryStage());
         } else {
@@ -288,10 +332,11 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        if (this != snakeHead) {
-            Globals.gameLoop.stop();
-            snakesAlive = 0;
-            gameOver();
+        if (!this.equals(snakeHead)) {
+//            Globals.gameLoop.stop();
+//            snakesAlive = 0;
+            gameOver("tie");
+            System.out.println("Tie");
         }
     }
 

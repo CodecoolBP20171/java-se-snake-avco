@@ -26,6 +26,7 @@ public class SetLengthPowerup extends Powerup {
         snakeHead.addPart(numberOfNewParts);
         setHistory(snakeHead);
         destroy();
+        decreaseNumberOfPowerups();
     }
 
     @Override

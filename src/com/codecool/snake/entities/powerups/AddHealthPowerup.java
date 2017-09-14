@@ -16,6 +16,7 @@ public class AddHealthPowerup extends Powerup{
         increaseScore(snakeHead);
         snakeHead.changeHealth(10);
         destroy();
+        decreaseNumberOfPowerups();
     }
 
     @Override

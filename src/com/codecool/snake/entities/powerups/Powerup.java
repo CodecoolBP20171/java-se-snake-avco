@@ -13,14 +13,32 @@ import java.util.*;
 public abstract class Powerup extends GameEntity implements Interactable {
 
     private Queue<Vec2d> history = new LinkedList<>();
+    private static int numberOfPowerups;
+    private int entitySize;
+    protected Random rand = new Random();
 
     public Powerup(Pane pane) {
         super(pane);
         pane.getChildren().add(this);
+        setValidPosition();
+        numberOfPowerups++;
+    }
 
-        Random rnd = new Random();
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
+    public void setValidPosition() {
+        entitySize = 40;
+        boolean inValidPosition = true;
+        while (inValidPosition) {
+            double xPos = (double) rand.nextInt((int) (Globals.WINDOW_WIDTH - entitySize) - entitySize + 1) + entitySize;
+            double yPos = (double) rand.nextInt((int) (Globals.WINDOW_HEIGHT - entitySize) - entitySize + 1) + entitySize;
+            setX(xPos);
+            setY(yPos);
+            for (SnakeHead player: Globals.players) {
+                if (getBoundsInParent().intersects(player.getBoundsInParent())) {
+                    inValidPosition = false;
+                }
+            }
+            break;
+        }
     }
 
     @Override
@@ -28,6 +46,14 @@ public abstract class Powerup extends GameEntity implements Interactable {
 
     @Override
     public abstract String getMessage();
+
+    public static void decreaseNumberOfPowerups() {
+        Powerup.numberOfPowerups--;
+    }
+
+    public static int getNumberOfPowerups() {
+        return numberOfPowerups;
+    }
 
     public void setHistory(SnakeHead snakeHead) {
         SnakeBody tailOfSnake = (SnakeBody) snakeHead.getTail();
@@ -51,4 +77,6 @@ public abstract class Powerup extends GameEntity implements Interactable {
     public void increaseScore(SnakeHead snake) {
         snake.setScore();
     }
+
+
 }

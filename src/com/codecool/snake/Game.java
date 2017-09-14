@@ -17,8 +17,8 @@ import javafx.scene.text.Font;
 public class Game extends Pane {
 
     public void start() {
-        SnakeHead snake1 =  new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP);
-        SnakeHead snake2 =  new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
+        SnakeHead snake1 = new SnakeHead(this, 100, 500, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP);
+        SnakeHead snake2 = new SnakeHead(this, 200, 500, KeyCode.A, KeyCode.D, KeyCode.W);
 
         Globals.players.add(snake1);
         Globals.players.add(snake2);
@@ -43,7 +43,7 @@ public class Game extends Pane {
         this.getChildren().add(score2);
 
         int numberOfPowerups = 1;
-        for (int i = 0; i < numberOfPowerups ; i++) {
+        for (int i = 0; i < numberOfPowerups; i++) {
             new SetLengthPowerup(this);
             new AddHealthPowerup(this);
             new SetTurnRatePowerup(this);
@@ -62,7 +62,6 @@ public class Game extends Pane {
             if (event.getCode() == KeyCode.ESCAPE) {
                 Gui.popUpWindow(Main.getPrimaryStage());
             }
-
         });
 
         Globals.gameLoop = new GameLoop();
