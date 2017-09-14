@@ -4,8 +4,11 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -14,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.objects.Global;
 
 public class Gui {
 
@@ -92,9 +96,7 @@ public class Gui {
     private static void createRestartButton(Stage primaryStage, Stage stage, VBox dialogVbox) {
         Button restartButton = new Button();
         restartButton.setText("Restart");
-        restartButton.setOnAction(event -> {
-            restartGame(primaryStage, stage);
-        });
+        restartButton.setOnAction(event -> restartGame(primaryStage, stage));
         dialogVbox.getChildren().add(restartButton);
     }
 
@@ -116,5 +118,22 @@ public class Gui {
         Globals.clearGameObjects();
     }
 
+    public static void createScoreBar() {
+        Label score = new Label();
+        score.textProperty().bind(Globals.players.get(0).getScore());
+        score.setLayoutX(180);
+        score.setLayoutY(20);
+        score.setFont(new Font(24));
+        Main.getGAME().getChildren().add(score);
+
+        if (Globals.players.size() > 1) {
+            Label score2 = new Label();
+            score2.textProperty().bind(Globals.players.get(1).getScore());
+            score2.setLayoutX(Globals.WINDOW_WIDTH - 280);
+            score2.setLayoutY(20);
+            score2.setFont(new Font(24));
+            Main.getGAME().getChildren().add(score2);
+        }
+    }
 }
 
