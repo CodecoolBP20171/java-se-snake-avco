@@ -28,22 +28,7 @@ public class Game extends Pane {
         Globals.SimpleEnemies.add(Globals.simpleEnemy2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy3);
 
-
-        Label score = new Label();
-        score.textProperty().bind(snake1.getScore());
-        score.setLayoutX(180);
-        score.setLayoutY(20);
-        score.setFont(new Font(24));
-        this.getChildren().add(score);
-
-        Label score2 = new Label();
-        score2.textProperty().bind(snake2.getScore());
-        score2.setLayoutX(Globals.WINDOW_WIDTH - 280);
-        score2.setLayoutY(20);
-        score2.setFont(new Font(24));
-        this.getChildren().add(score2);
-
-
+        Gui.createScoreBar();
 
         int numberOfPowerups = 1;
         for (int i = 0; i < numberOfPowerups ; i++) {

@@ -23,6 +23,8 @@ public class Globals {
     public static Image simpleEnemy2 = new Image("simple_enemy_2.png");
     public static Image simpleEnemy3 = new Image("simple_enemy_3.png");
     public static Image laser = new Image("laser.png");
+    public static Image snakeProf = new Image("snake1green.png");
+    public static Image snakeDoubleProf = new Image("snake1red.png");
     public static Image advancedEnemy = new Image("missile.png");
     public static Image circlingENemy = new Image("spider.png");
     public static List<Image> SimpleEnemies = new ArrayList();
