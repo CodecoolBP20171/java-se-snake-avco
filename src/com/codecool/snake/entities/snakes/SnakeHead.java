@@ -52,6 +52,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private KeyCode leftCode;
     private KeyCode rightCode;
     private KeyCode shootCode;
+    private long timeOfLastCreatedPowerups;
 
 
     public SnakeHead(Pane pane, int xc, int yc, int zc, String name) {
@@ -68,6 +69,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         leftCode = snakeControl.get(0);
         rightCode = snakeControl.get(1);
         shootCode = snakeControl.get(2);
+        timeOfLastCreatedPowerups = System.currentTimeMillis();
 
         //setSnakeHeadImage();
         setImage(Globals.snakeHeadGreen);
@@ -170,6 +172,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         setY(getY() + heading.getY());
         laserShoot(dir);
         checkTheCollided();
+        addPowerUpsRandomly();
 
         //Globals.scoreList.put(snakeHeadColor, intScore);
 
@@ -339,5 +342,39 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
 
     public GameEntity getTail() {
         return tail;
+    }
+
+    public void addPowerUpsRandomly() {
+        long currentTime = System.currentTimeMillis();
+        Random random = new Random();
+        int minTime = 1000;
+        int maxTime = 2000;
+        int randomTimeToCreatePowerups = random.nextInt(maxTime) + minTime;
+
+        if ((timeOfLastCreatedPowerups + randomTimeToCreatePowerups) < currentTime) {
+            int maxNumberOfPowerups = 2;
+            int numberOfNewPowerUps = random.nextInt(maxNumberOfPowerups) + 1;
+            int numberOfPowerupTypes = 3;
+            int option;
+            timeOfLastCreatedPowerups = System.currentTimeMillis();
+
+            if (Powerup.getNumberOfPowerups() < 3) {
+                for (int i = 0; i < numberOfNewPowerUps; i++) {
+                    option = random.nextInt(numberOfPowerupTypes);
+
+                    switch (option) {
+                        case 0:
+                            new AddHealthPowerup(pane);
+                            break;
+                        case 1:
+                            new SetLengthPowerup(pane);
+                            break;
+                        case 2:
+                            new SetTurnRatePowerup(pane);
+                            break;
+                    }
+                }
+            }
+        }
     }
 }
