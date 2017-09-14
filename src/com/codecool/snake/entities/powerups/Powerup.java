@@ -16,12 +16,14 @@ public abstract class Powerup extends GameEntity implements Interactable {
     private static int numberOfPowerups;
     private int entitySize;
     protected Random rand = new Random();
+    protected long timeOfLastCreatedPowerups;
 
     public Powerup(Pane pane) {
         super(pane);
         pane.getChildren().add(this);
         setValidPosition();
         numberOfPowerups++;
+//        timeOfLastCreatedPowerups = System.currentTimeMillis();
     }
 
     public void setValidPosition() {
@@ -77,6 +79,40 @@ public abstract class Powerup extends GameEntity implements Interactable {
     public void increaseScore(SnakeHead snake) {
         snake.setScore();
     }
+
+//    public void addPowerUpsRandomly() {
+//        long currentTime = System.currentTimeMillis();
+//        Random random = new Random();
+//        int minTime = 1000;
+//        int maxTime = 2000;
+//        int randomTimeToCreatePowerups = random.nextInt(maxTime) + minTime;
+//
+//        if ((timeOfLastCreatedPowerups + randomTimeToCreatePowerups) < currentTime) {
+//            int maxNumberOfPowerups = 2;
+//            int numberOfNewPowerUps = random.nextInt(maxNumberOfPowerups) + 1;
+//            int numberOfPowerupTypes = 3;
+//            int option;
+////            timeOfLastCreatedPowerups = System.currentTimeMillis();
+//
+//            if (Powerup.getNumberOfPowerups() < 3) {
+//                for (int i = 0; i < numberOfNewPowerUps; i++) {
+//                    option = random.nextInt(numberOfPowerupTypes);
+//
+//                    switch (option) {
+//                        case 0:
+//                            new AddHealthPowerup(pane);
+//                            break;
+//                        case 1:
+//                            new SetLengthPowerup(pane);
+//                            break;
+//                        case 2:
+//                            new SetTurnRatePowerup(pane);
+//                            break;
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
 }

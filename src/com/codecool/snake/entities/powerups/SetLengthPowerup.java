@@ -27,6 +27,8 @@ public class SetLengthPowerup extends Powerup {
         setHistory(snakeHead);
         destroy();
         decreaseNumberOfPowerups();
+//        addPowerUpsRandomly();
+//        timeOfLastCreatedPowerups = System.currentTimeMillis();
     }
 
     @Override

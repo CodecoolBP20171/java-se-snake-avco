@@ -73,6 +73,7 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
         }
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
+        checkUnitNumbers();
     }
 
     @Override
@@ -80,7 +81,6 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
         player.changeHealth(-damage);
         destroy();
         Globals.setNumOfEnemies(-1);
-        checkUnitNumbers();
     }
 
     @Override
