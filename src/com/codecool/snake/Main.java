@@ -16,10 +16,16 @@ public class Main extends Application {
         Gui.setPrimaryStage(primaryStage);
         Gui.addStartPictures();
         Stage initialise = Gui.createStartWindow(0);
-        Gui.buttons.get("createStartWindowonPlayerButton").setOnAction(event -> {
-            Gui.numberOfPlayers = 1;
-            Gui.createStartWindow(1);
+
+        Gui.buttons.get("startButton").setOnAction(event -> {
+            Game game = new Game(Gui.numberOfPlayers+1);
+            Scene scene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
+            Gui.chooseTheme(game);
+            primaryStage.setTitle("Snake Game");
+            primaryStage.setScene(scene);
+            primaryStage.show();
             initialise.close();
+            game.start();
 
         });
     }
