@@ -17,8 +17,6 @@ public class AddHealthPowerup extends Powerup{
         snakeHead.changeHealth(10);
         destroy();
         decreaseNumberOfPowerups();
-//        addPowerUpsRandomly();
-//        timeOfLastCreatedPowerups = System.currentTimeMillis();
     }
 
     @Override

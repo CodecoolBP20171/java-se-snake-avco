@@ -39,8 +39,6 @@ public class SetTurnRatePowerup extends Powerup {
 
         destroy();
         decreaseNumberOfPowerups();
-//        addPowerUpsRandomly();
-//        timeOfLastCreatedPowerups = System.currentTimeMillis();
     }
 
     @Override
