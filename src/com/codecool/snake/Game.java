@@ -6,6 +6,7 @@ import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.AddHealthPowerup;
 import com.codecool.snake.entities.powerups.SetLengthPowerup;
 import com.codecool.snake.entities.powerups.SetTurnRatePowerup;
+import com.codecool.snake.entities.snakes.SnakeBody;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -24,6 +25,7 @@ public class Game extends Pane {
 
     public void start() {
         SnakeHead.snakeSettings();
+        SnakeBody.setSnakeBodySetup();
         createSnakes(numberOfPlayers);
 
         Globals.SimpleEnemies.add(Globals.simpleEnemy);

@@ -17,6 +17,7 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
     private static final int historySize = 10;
     private Image bodyImage;
     private List<GameEntity> snakeParts = new ArrayList<>();
+    private static HashMap<String,Image> bodyColors = new HashMap<>();
 
     public SnakeBody(Pane pane, GameEntity parent) {
         super(pane);
@@ -44,18 +45,20 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
             history.add(new Vec2d(xc, yc));
         }
     }
+    public static void setSnakeBodySetup(){
+        bodyColors.put("red",new Image("snake_body_red.png"));
+        bodyColors.put("green",new Image("snake_body_green.png"));
+        bodyColors.put("blue",new Image("snake_body_blue.png"));
+        bodyColors.put("yellow",new Image("snake_body_yellow.png"));
+    }
 
     private void setBodyColor(GameEntity parent) {
         if (parent instanceof SnakeHead) {
             SnakeHead head = (SnakeHead) parent;
-            if ("green".equals("green")) {
-                bodyImage = Globals.snakeBodyGreen;
-            } else {
-                bodyImage = Globals.snakeBodyRed;
-            }
+            bodyImage = bodyColors.get(head.getColor());
         } else {
             SnakeBody bodyPart = (SnakeBody) parent;
-            bodyImage = bodyPart.getBodyImage();
+            this.bodyImage = bodyPart.bodyImage;
         }
     }
 
@@ -68,10 +71,6 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
         setX(pos.x);
         setY(pos.y);
         history.add(new Vec2d(parent.getX(), parent.getY())); // add the parent's current position to the beginning of the history
-    }
-
-    public Image getBodyImage() {
-        return bodyImage;
     }
 
     public GameEntity getTailParent() {
