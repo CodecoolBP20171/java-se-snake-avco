@@ -66,23 +66,19 @@ public class Game extends Pane {
         Globals.gameLoop.start();
     }
     private void addProgressBar(){
-        int counter = 0;
-        int x = 100;
-        int y = 50;
         for (int i = 0; i < SnakeHead.healthBar.size(); i++) {
-            if (counter <=2){
-                x = (int) (Globals.WINDOW_WIDTH-x - 100);
-            }   else if (counter == 4){
-
-                x = (int) (Globals.WINDOW_WIDTH-x - 100);
-                y = (int) (Globals.WINDOW_WIDTH-y - 50);
-            }
             ProgressBar progressBar = SnakeHead.healthBar.get(i);
-            progressBar.setLayoutX(x);
-            progressBar.setLayoutY(y);
+            switch (i){
+                case 0 :  progressBar.setLayoutX(50);progressBar.setLayoutY(20);break;
+                case 1 :  progressBar.setLayoutX(Globals.WINDOW_WIDTH-150);progressBar.setLayoutY(20);break;
+                case 2 :  progressBar.setLayoutX(50);progressBar.setLayoutY(Globals.WINDOW_HEIGHT-40);break;
+                case 3 :  progressBar.setLayoutX(Globals.WINDOW_WIDTH-150);progressBar.setLayoutY(Globals.WINDOW_HEIGHT-40);break;
+            }
             this.getChildren().add(progressBar);
         }
     }
+
+
     private void addScoreBard(){
         Gui.createScoreBar(this);
     }
