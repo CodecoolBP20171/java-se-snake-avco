@@ -19,8 +19,6 @@ public class Gui {
 
     public static void createHealthBar(ProgressBar progressBar, int snakeHealth) {
         progressBar.setProgress((double) snakeHealth /100);
-
-
     }
 
     public static void popUpWindow(Stage primaryStage) {

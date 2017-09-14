@@ -16,7 +16,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class SnakeHead extends GameEntity implements Animatable,Interactable {
 
@@ -25,44 +27,40 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
     private float turnRate = 2;
     private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
+    private int timer;
     private int health;
+    private int length;
+    private int intScore;
+    private double dir;
     private long lastShotTime;
     private long reloadTime = 300;
+    private boolean shoot = false;
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
-    private boolean shoot = false;
-    private double dir;
-    private int timer;
-    private int length;
+    private String snakeColor;
     private SimpleStringProperty score = new SimpleStringProperty("Score: 0");
-    private int intScore;
-    private static int progressBarPosition = 20;
-    private static String progressBarColor = " -fx-accent: red; ";
     private ProgressBar progressBar = new ProgressBar(1);
+    public static List<ProgressBar> healthBar = new ArrayList<>();
 
-    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
+    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode, String snakeColor) {
         super(pane);
         tail = this;
         health = 100;
         setX(xc);
         setY(yc);
-        setImage(Globals.snakeHead);
+        this.snakeColor = snakeColor;
         pane.getChildren().add(this);
+        setImage(Globals.snakeHead);
+
         initEventHandlers(pane, leftCode, rightCode, shootCode);
         snakesAlive++;
-        progressBar.setLayoutX(progressBarPosition);
-        progressBar.setLayoutY(20);
-        Main.getGAME().getChildren().add(progressBar);
-
-        addPart(4);
-        progressBarPosition = (int) Globals.WINDOW_WIDTH - health - 20;
+        String color = String.format("-fx-accent: %s", snakeColor);
         progressBar.setStyle("" +
-                        "-fx-control-inner-background: white;" +
-                progressBarColor +
-                "-fx-fill:null;" +
-                "-fx-padding: 0 0 -16 0;"
-                );
-        progressBarColor = " -fx-accent: blue; ";
+                "-fx-control-inner-background: white;" +
+                color
+        );
+        healthBar.add(this.progressBar);
+        addPart(4);
     }
 
     public float getMaxSpeed() {
