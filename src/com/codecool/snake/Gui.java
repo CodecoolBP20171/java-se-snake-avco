@@ -1,15 +1,16 @@
 package com.codecool.snake;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -19,52 +20,63 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.objects.Global;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Gui {
     private static Stage primaryStage;
+    private static List<Image> startPictures = new ArrayList<>();
     public static HashMap<String,Button> buttons = new HashMap<>();
+    public static int numberOfPlayers = 0;
 
-
-    public static Stage getPrimaryStage() {
-        return primaryStage;
+    public static void addStartPictures(){
+        startPictures.add( new Image("snake1green.png"));
+        startPictures.add(new Image("snake1red.png"));
     }
 
     public static void setPrimaryStage(Stage primaryStage) {
         Gui.primaryStage = primaryStage;
     }
-    public static Stage createStartWindow(){
+    public static Stage createStartWindow(int number){
         Stage initialise = new Stage();
-        GridPane root = new GridPane();
-        Button onePlayerButton = new Button("1 Player");
-        Button twoPlayerButton = new Button("2 Players");
+        Button leftButton = new Button("\uD83E\uDC80");
+        Button rightButton = new Button("\uD83E\uDC82");
+        Button startButton = new Button("Start");
         initialise.setTitle("Start new game");
+        VBox vBox = new VBox();
+        HBox playerNumberBox = new HBox(3);
+        HBox start = new HBox(1);
 
-        ImageView pic = new ImageView();
-        ImageView pic1 = new ImageView();
-        Line corridor = new Line(200, 0, 200, 200);
+        //pane.setBackground(new Background(new BackgroundImage(startPictures.get(0),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
+        ImageView imageView = new ImageView();
+        leftButton.setPrefSize(100,20);
+        rightButton.setPrefSize(100,20);
+        playerNumberBox.setAlignment(Pos.CENTER);
+        playerNumberBox.getChildren().addAll(leftButton);
+        playerNumberBox.getChildren().add(imageView);
+        playerNumberBox.getChildren().addAll(rightButton);
+        playerNumberBox.setPadding(new Insets(20));
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(200);
+        imageView.setImage(startPictures.get(0));
+        start.setPrefSize(400,20);
+        start.getChildren().add(startButton);
+        start.setAlignment(Pos.BOTTOM_CENTER);
+        start.setPadding(new Insets(40));
+        vBox.getChildren().addAll(playerNumberBox,start);
 
-        pic.setFitHeight(130);
-        pic.setFitWidth(130);
-        pic1.setFitHeight(130);
-        pic1.setFitWidth(130);
-        pic.setImage(Globals.snakeProf);
-        pic1.setImage(Globals.snakeDoubleProf);
-
-        root.add(pic, 0, 0, 1, 1);
-        root.add(onePlayerButton, 0, 1 ,1,1);
-        root.add(pic1, 3, 0, 1, 1);
-        root.add(twoPlayerButton, 3, 1, 1, 1);
-        root.add(corridor, 2, 0, 1, 1);
-        root.setHgap(30);
-        root.setVgap(70);
-        buttons.put("createStartWindowonPlayerButton",onePlayerButton);
-        buttons.put("createStartWindowtwoPlayerButton",twoPlayerButton);
-        Scene preScene = new Scene(root, 350, 400);
+        buttons.put("createStartWindowonPlayerButton",leftButton);
+        buttons.put("createStartWindowtwoPlayerButton",rightButton);
+        Scene preScene = new Scene(vBox, 400 , 350);
         initialise.setScene(preScene);
+
         initialise.show();
 
         return initialise;
+    }
+    public static void changePicture(Stage stage){
+
     }
 
 

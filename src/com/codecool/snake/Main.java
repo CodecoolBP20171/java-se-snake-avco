@@ -14,17 +14,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Gui.setPrimaryStage(primaryStage);
-        Stage initialise = Gui.createStartWindow();
-
+        Gui.addStartPictures();
+        Stage initialise = Gui.createStartWindow(0);
         Gui.buttons.get("createStartWindowonPlayerButton").setOnAction(event -> {
+            Gui.numberOfPlayers = 1;
+            Gui.createStartWindow(1);
             initialise.close();
-            Game game = new Game(1);
-            Gui.getPrimaryStage().setTitle("Snake Game");
-            Scene scene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
-            Gui.chooseTheme(game);
-            Gui.getPrimaryStage().setScene(scene);
-            Gui.getPrimaryStage().show();
-            game.start();
+
         });
     }
 }
