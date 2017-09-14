@@ -14,8 +14,6 @@ import java.util.Queue;
 
 public class SetLengthPowerup extends Powerup {
 
-    private Queue<Vec2d> history = new LinkedList<>();
-
     public SetLengthPowerup(Pane pane) {
         super(pane);
         setImage(Globals.powerupSetLength);
@@ -27,24 +25,6 @@ public class SetLengthPowerup extends Powerup {
         snakeHead.addPart(numberOfNewParts);
         setHistory(snakeHead);
         destroy();
-    }
-
-    private void setHistory(SnakeHead snakeHead) {
-        SnakeBody tailOfSnake = (SnakeBody) snakeHead.getTail();
-        tailOfSnake.getSnakeParts().remove(snakeHead);
-        List<SnakeBody> snakeFullBodyWithoutHead = new ArrayList<>();
-
-        for (GameEntity part: tailOfSnake.getSnakeParts()) {
-            snakeFullBodyWithoutHead.add((SnakeBody) part);
-        }
-
-        for (SnakeBody body: snakeFullBodyWithoutHead) {
-            this.history = body.getHistory();
-            for (int i = 0; i < history.size() - 5; i++) {
-                body.pollHistory();
-            }
-        }
-        tailOfSnake.getSnakeParts().add(0, snakeHead);
     }
 
     @Override

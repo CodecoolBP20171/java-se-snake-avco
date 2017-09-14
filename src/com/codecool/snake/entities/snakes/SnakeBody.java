@@ -26,7 +26,6 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
             snakeParts.addAll(prevBody.getSnakeParts());
         }
         snakeParts.add(this);
-        System.out.println(snakeParts);
         this.parent = parent;
         setImage(Globals.snakeBody);
 
