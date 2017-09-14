@@ -18,6 +18,7 @@ public class NotSoSimpleEnemy extends SimpleEnemy {
         heading = Utils.directionToVector(direction, speed);
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
+        checkUnitNumbers();
     }
 
 }

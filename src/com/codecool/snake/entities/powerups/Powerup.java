@@ -73,10 +73,7 @@ public abstract class Powerup extends GameEntity implements Interactable {
         tailOfSnake.getSnakeParts().add(0, snakeHead);
     }
 
-
     public void increaseScore(SnakeHead snake) {
         snake.setScore();
     }
-
-
 }
