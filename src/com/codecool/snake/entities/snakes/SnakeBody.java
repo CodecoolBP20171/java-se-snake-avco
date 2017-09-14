@@ -48,7 +48,7 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
     private void setBodyColor(GameEntity parent) {
         if (parent instanceof SnakeHead) {
             SnakeHead head = (SnakeHead) parent;
-            if (head.getSnakeHeadColor().equals("green")) {
+            if ("green".equals("green")) {
                 bodyImage = Globals.snakeBodyGreen;
             } else {
                 bodyImage = Globals.snakeBodyRed;

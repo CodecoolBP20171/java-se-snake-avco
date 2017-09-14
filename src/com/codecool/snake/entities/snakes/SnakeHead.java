@@ -32,57 +32,63 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private float turnRate = 2;
     private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
+    private int timer;
     private int health;
+    private int length;
+    private int intScore;
+    private double dir;
     private long lastShotTime;
     private long reloadTime = 300;
+    private boolean shoot = false;
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
-    private boolean shoot = false;
-    private double dir;
-    private int timer;
-    private int length;
-
-    private String snakeHeadColor;
-    private Image snakeHeadImage;
-
-    private SimpleStringProperty score = new SimpleStringProperty("Score: 0");
-    private int intScore;
-    private static int progressBarPosition = 20;
-    private static String progressBarColor = " -fx-accent: red; ";
+    public String name;
+    private SimpleStringProperty score = new SimpleStringProperty();
     private ProgressBar progressBar = new ProgressBar(1);
-    private long timeOfLastCreatedPowerups;
+    public static List<ProgressBar> healthBar = new ArrayList<>();
+    private List<String> snakeColor = new ArrayList<>();
+    public static List<ArrayList<KeyCode>> snakeControls = new ArrayList<>();
+    private static int usedSnakeControl = 0;
+    private KeyCode leftCode;
+    private KeyCode rightCode;
+    private KeyCode shootCode;
 
 
-    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode) {
+    public SnakeHead(Pane pane, int xc, int yc, int zc, String name) {
         super(pane);
         tail = this;
+        this.name = name;
         health = 100;
         setX(xc);
         setY(yc);
-
-        setSnakeHeadImage();
-        setImage(snakeHeadImage);
-
-        timeOfLastCreatedPowerups = System.currentTimeMillis();
-
+        setRotate(zc);
         pane.getChildren().add(this);
+        ArrayList<KeyCode> snakeControl = this.snakeControls.get(usedSnakeControl);
+        usedSnakeControl++;
+        leftCode = snakeControl.get(0);
+        rightCode = snakeControl.get(1);
+        shootCode = snakeControl.get(2);
+
+        //setSnakeHeadImage();
+        setImage(Globals.snakeHeadGreen);
+
         initEventHandlers(pane, leftCode, rightCode, shootCode);
         snakesAlive++;
-        progressBar.setLayoutX(progressBarPosition);
-        progressBar.setLayoutY(20);
-        Main.getGAME().getChildren().add(progressBar);
-
-        addPart(4);
-        progressBarPosition = (int) Globals.WINDOW_WIDTH - health - 20;
+        String color = String.format("-fx-accent: %s", snakeColor);
         progressBar.setStyle("" +
                 "-fx-control-inner-background: white;" +
-                progressBarColor +
+                color
+        );
+
+        healthBar.add(this.progressBar);
+        addPart(4);
+        progressBar.setStyle("" +
+                        "-fx-control-inner-background: white;" +
                 "-fx-fill:null;" +
                 "-fx-padding: 0 0 -16 0;"
-        );
-        progressBarColor = " -fx-accent: blue; ";
+                );
     }
-
+/*
     private void setSnakeHeadImage() {
         if (snakesAlive % 2 == 1) {
             snakeHeadColor = "green";
@@ -91,8 +97,29 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
             snakeHeadColor = "red";
             snakeHeadImage = Globals.snakeHeadRed;
         }
+        */
+    public static void snakeSettings(){
+        ArrayList<KeyCode> keys = new ArrayList<>();
+        keys.add(KeyCode.LEFT);
+        keys.add(KeyCode.RIGHT);
+        keys.add(KeyCode.UP);
+        snakeControls.add(keys);
+        keys = new ArrayList<>();
+        keys.add(KeyCode.A);
+        keys.add(KeyCode.D);
+        keys.add(KeyCode.W);
+        snakeControls.add(keys);
+         keys = new ArrayList<>();
+        keys.add(KeyCode.F);
+        keys.add(KeyCode.H);
+        keys.add(KeyCode.T);
+        snakeControls.add(keys);
+        keys = new ArrayList<>();
+        keys.add(KeyCode.J);
+        keys.add(KeyCode.L);
+        keys.add(KeyCode.I);
+        snakeControls.add(keys);
     }
-
     public float getTurnRate() {
         return turnRate;
     }
@@ -117,10 +144,10 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     public int getHealth() {
         return health;
     }
-
+/*
     public String getSnakeHeadColor() {
         return snakeHeadColor;
-    }
+    */
 
     public static void decrSnakesAlive(int decrement) {
         snakesAlive -= decrement;
@@ -143,44 +170,9 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         setY(getY() + heading.getY());
         laserShoot(dir);
         checkTheCollided();
-        addPowerUpsRandomly();
 
-        Globals.scoreList.put(snakeHeadColor, intScore);
-        //isGameOver();
-    }
+        //Globals.scoreList.put(snakeHeadColor, intScore);
 
-    public void addPowerUpsRandomly() {
-        long currentTime = System.currentTimeMillis();
-        Random random = new Random();
-        int minTime = 1000;
-        int maxTime = 2000;
-        int randomTimeToCreatePowerups = random.nextInt(maxTime) + minTime;
-
-        if ((timeOfLastCreatedPowerups + randomTimeToCreatePowerups) < currentTime) {
-            int maxNumberOfPowerups = 2;
-            int numberOfNewPowerUps = random.nextInt(maxNumberOfPowerups) + 1;
-            int numberOfPowerupTypes = 3;
-            int option;
-            timeOfLastCreatedPowerups = System.currentTimeMillis();
-
-            if (Powerup.getNumberOfPowerups() < 3) {
-                for (int i = 0; i < numberOfNewPowerUps; i++) {
-                    option = random.nextInt(numberOfPowerupTypes);
-
-                    switch (option) {
-                        case 0:
-                            new AddHealthPowerup(pane);
-                            break;
-                        case 1:
-                            new SetLengthPowerup(pane);
-                            break;
-                        case 2:
-                            new SetTurnRatePowerup(pane);
-                            break;
-                    }
-                }
-            }
-        }
     }
 
     public void checkGate() {
@@ -263,7 +255,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         if (Globals.players.size() == 1 ||
                 (endType.equals("tie"))) {
             System.out.println("Game Over");
-            Gui.gameOverWindow(Main.getPrimaryStage());
+            Gui.gameOverWindow();
         } else {
             destroyAll(tail);
         }
@@ -280,13 +272,13 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
             destroyAll(tailParent);
         } else {
             tail.destroy();
-            System.out.println("The " + snakeHeadColor + " snake is died");
+            //System.out.println("The " + snakeHeadColor + " snake is died");
         }
     }
 
     public void setScore() {
         intScore++;
-        score.setValue("Score: " + Integer.toString(intScore));
+        score.setValue(name + ": " + Integer.toString(intScore));
     }
 
     public SimpleStringProperty getScore() {
