@@ -1,10 +1,10 @@
 package com.codecool.snake;
 
+import com.codecool.snake.entities.powerups.Powerup;
+import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -22,12 +21,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.objects.Global;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 public class Gui {
@@ -41,10 +38,10 @@ public class Gui {
     public static int numberOfPlayers = 0;
 
     public static void addStartPictures(){
-        startPictures.add( new Image("snake1green.png"));
-        startPictures.add(new Image("snake1red.png"));
-        startPictures.add( new Image("snake1green.png"));
-        startPictures.add(new Image("snake1red.png"));
+        startPictures.add( new Image("1player.png"));
+        startPictures.add(new Image("2player.png"));
+        startPictures.add( new Image("3player.png"));
+        startPictures.add(new Image("4player.png"));
     }
 
 
@@ -77,6 +74,7 @@ public class Gui {
 
         //pane.setBackground(new Background(new BackgroundImage(startPictures.get(0),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         ImageView imageView = new ImageView();
+
         leftButton.setPrefSize(100,20);
         rightButton.setPrefSize(100,20);
         playerNumberBox.setAlignment(Pos.CENTER);
@@ -84,45 +82,37 @@ public class Gui {
         playerNumberBox.getChildren().add(imageView);
         playerNumberBox.getChildren().addAll(rightButton);
         playerNumberBox.setPadding(new Insets(20));
-        imageView.setFitWidth(200);
-        imageView.setFitHeight(200);
+        imageView.setFitWidth(250);
+        imageView.setFitHeight(250);
         imageView.setImage(startPictures.get(number));
-
+        playerNumberBox.setSpacing(30);
         start.setPrefSize(400,20);
         start.getChildren().add(startButton);
         start.setAlignment(Pos.BOTTOM_CENTER);
-        start.setPadding(new Insets(40));
+        start.setPadding(new Insets(20));
+        vBox.setStyle("-fx-background-color: lightblue;");
         vBox.getChildren().addAll(playerNumberBox,start,keysDesc);
-
         buttons.put("startButton",startButton);
         buttons.put("leftButton",leftButton);
         buttons.put("rightButton",rightButton);
-        Scene preScene = new Scene(vBox, 400 , 450);
+        Scene preScene = new Scene(vBox, 600 , 450);
         initialise.setScene(preScene);
 
         buttons.put("leftButton",leftButton);
         buttons.put("rightButton",rightButton);
         leftButton.setOnAction(event -> {
             if (numberOfPlayers -1 > -1){
-
                 numberOfPlayers = numberOfPlayers-1;
                 imageView.setImage(startPictures.get(numberOfPlayers));
-
             }
         });
-
         rightButton.setOnAction(event -> {
             if (numberOfPlayers + 1 < startPictures.size()){
-
                 numberOfPlayers = numberOfPlayers+1;
                 imageView.setImage(startPictures.get(numberOfPlayers));
-
-
             }
         });
-
         initialise.show();
-
         return initialise;
     }
 
@@ -132,7 +122,7 @@ public class Gui {
         Stage dialog = new Stage();
 
         VBox dialogVbox = new VBox(20);
-//        dialogVbox.setStyle("-fx-background-color:#fffa77;");
+        dialogVbox.setStyle("-fx-background-color:#fffa77;");
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
 
 
@@ -246,21 +236,32 @@ public class Gui {
         Globals.gameObjects.clear();
         primaryStage.close();
         new Main().start(new Stage());
+        Globals.players.clear();
+        SnakeHead.healthBar.clear();
+        SnakeHead.usedSnakeControl = 0;
+        SnakeHead.snakeHeadColor = new HashMap<>();
+        Gui.numberOfPlayers = 0;
+        Globals.SimpleEnemies.clear();
+        Globals.clearNumberOfEnemies();
+        Powerup.setNumberOfPowerups(0);
+
         dialog.close();
     }
 
     public static void createScoreBar(Game game, int players) {
         Label score = new Label();
-        int width = 200;
         for (int i = 0; i < players; i++) {
             Globals.players.get(i).setScore();
             score.textProperty().bind(Globals.players.get(i).getScore());
-            score.setLayoutX(width);
-            score.setLayoutY(40);
+            if (i == 0 || i == 2) { score.setLayoutX(50); }
+            if (i == 1 || i == 3) { score.setLayoutX(Globals.WINDOW_WIDTH - 150); }
+            if (i < 2) {
+                score.setLayoutY(40);
+            } else {score.setLayoutY(Globals.WINDOW_HEIGHT - 80);
+            }
             score.setFont(new Font(24));
             game.getChildren().add(score);
             score = new Label();
-            width += 200;
         }
     }
 }

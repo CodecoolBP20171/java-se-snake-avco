@@ -51,7 +51,7 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     }
 
     public void checkUnitNumbers() {
-        if (Globals.getNumOfEnemies() < 3) {
+        if (Globals.getNumOfEnemies() < 5) {
             int choose = rnd.nextInt(3) + 1;
             switch (choose) {
                 case 1: new SimpleEnemy(pane);

@@ -16,10 +16,7 @@ public class Globals {
     public static final double WINDOW_WIDTH = 900;
     public static final double WINDOW_HEIGHT = 600;
 
-    public static Image snakeHeadGreen = new Image("snake_head_green.png");
-    public static Image snakeBodyGreen = new Image("snake_body_green.png");
-    public static Image snakeHeadRed = new Image("snake_head_red.png");
-    public static Image snakeBodyRed = new Image("snake_body_red.png");
+
     public static Image simpleEnemy = new Image("simple_enemy.png");
     public static Image simpleEnemy1 = new Image("simple_enemy_1.png");
     public static Image simpleEnemy2 = new Image("simple_enemy_2.png");
@@ -69,6 +66,10 @@ public class Globals {
 
     public static int getNumOfEnemies() {
         return numOfEnemies;
+    }
+
+    public static void clearNumberOfEnemies(){
+        numOfEnemies = 0;
     }
 
     public static void clearGameObjects() {
