@@ -1,11 +1,17 @@
 package com.codecool.snake;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -14,25 +20,106 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.objects.Global;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import java.util.Map;
 
 public class Gui {
+    public static void setPrimaryStage(Stage primaryStage) {
+        Gui.primaryStage = primaryStage;
+    }
+
+    private static Stage primaryStage;
+    private static List<Image> startPictures = new ArrayList<>();
+    public static HashMap<String,Button> buttons = new HashMap<>();
+    public static int numberOfPlayers = 0;
+
+    public static void addStartPictures(){
+        startPictures.add( new Image("snake1green.png"));
+        startPictures.add(new Image("snake1red.png"));
+        startPictures.add( new Image("snake1green.png"));
+        startPictures.add(new Image("snake1red.png"));
+    }
+
 
     public static void createHealthBar(ProgressBar progressBar, int snakeHealth) {
         progressBar.setProgress((double) snakeHealth / 100);
-
-
     }
 
-    public static void popUpWindow(Stage primaryStage) {
-        Globals.gameLoop.stop();
+    public static Stage createStartWindow(int number){
+        Stage initialise = new Stage();
+        Button leftButton = new Button("\uD83E\uDC80");
+        Button rightButton = new Button("\uD83E\uDC82");
+        Button startButton = new Button("Start");
+        initialise.setTitle("Start new game");
+        VBox vBox = new VBox();
+        HBox playerNumberBox = new HBox(3);
+        HBox start = new HBox(1);
+
+        //pane.setBackground(new Background(new BackgroundImage(startPictures.get(0),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
+        ImageView imageView = new ImageView();
+        leftButton.setPrefSize(100,20);
+        rightButton.setPrefSize(100,20);
+        playerNumberBox.setAlignment(Pos.CENTER);
+        playerNumberBox.getChildren().addAll(leftButton);
+        playerNumberBox.getChildren().add(imageView);
+        playerNumberBox.getChildren().addAll(rightButton);
+        playerNumberBox.setPadding(new Insets(20));
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(200);
+        imageView.setImage(startPictures.get(number));
+
+        start.setPrefSize(400,20);
+        start.getChildren().add(startButton);
+        start.setAlignment(Pos.BOTTOM_CENTER);
+        start.setPadding(new Insets(40));
+        vBox.getChildren().addAll(playerNumberBox,start);
+
+        buttons.put("startButton",startButton);
+        buttons.put("leftButton",leftButton);
+        buttons.put("rightButton",rightButton);
+        Scene preScene = new Scene(vBox, 400 , 350);
+        initialise.setScene(preScene);
+
+        buttons.put("leftButton",leftButton);
+        buttons.put("rightButton",rightButton);
+        leftButton.setOnAction(event -> {
+            if (numberOfPlayers -1 > -1){
+
+                numberOfPlayers = numberOfPlayers-1;
+                imageView.setImage(startPictures.get(numberOfPlayers));
+
+            }
+        });
+
+        rightButton.setOnAction(event -> {
+            if (numberOfPlayers + 1 < startPictures.size()){
+
+                numberOfPlayers = numberOfPlayers+1;
+                imageView.setImage(startPictures.get(numberOfPlayers));
+
+
+            }
+        });
+
+        initialise.show();
+
+        return initialise;
+    }
+
+
+    public static void popUpWindow() {
 
         Stage dialog = new Stage();
 
         VBox dialogVbox = new VBox(20);
 //        dialogVbox.setStyle("-fx-background-color:#fffa77;");
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
+
 
 
         Text text = new Text();
@@ -43,10 +130,10 @@ public class Gui {
         dialogVbox.setAlignment(Pos.CENTER);
         dialogVbox.getChildren().add(text);
 
-        createRestartButton(primaryStage, dialog, dialogVbox);
+        createRestartButton(dialog, dialogVbox);
         createContinueButton(dialog, dialogVbox);
+        dialog.initOwner(Gui.primaryStage);
 
-        dialog.initOwner(primaryStage);
         dialog.setScene(dialogScene);
         dialog.show();
         dialog.setOnCloseRequest(event -> Globals.gameLoop.start());
@@ -71,7 +158,8 @@ public class Gui {
         game.getChildren().add(gate2);
     }
 
-    public static void gameOverWindow(Stage primaryStage) {
+    public static void gameOverWindow() {
+
         Globals.gameLoop.stop();
         Stage gameOverStage = new Stage();
 
@@ -100,10 +188,11 @@ public class Gui {
         gameOverBox.setAlignment(Pos.CENTER);
         gameOverBox.getChildren().add(text);
 
-        createRestartButton(primaryStage, gameOverStage, gameOverBox);
+        createRestartButton(gameOverStage, gameOverBox);
+
         createExitButton(gameOverBox);
 
-        gameOverStage.initOwner(primaryStage);
+        gameOverStage.initOwner(Gui.primaryStage);
         gameOverStage.setScene(gameOverScene);
         gameOverStage.show();
         gameOverStage.setOnCloseRequest(event -> Platform.exit());
@@ -117,10 +206,11 @@ public class Gui {
         vBox.getChildren().add(continueButton);
     }
 
-    private static void createRestartButton(Stage primaryStage, Stage stage, VBox dialogVbox) {
+    private static void createRestartButton(Stage stage, VBox dialogVbox) {
         Button restartButton = new Button();
         restartButton.setText("Restart");
-        restartButton.setOnAction(event -> restartGame(primaryStage, stage));
+        restartButton.setOnAction(event -> restartGame(stage));
+
         dialogVbox.getChildren().add(restartButton);
     }
 
@@ -136,12 +226,27 @@ public class Gui {
         Globals.gameLoop.start();
     }
 
-    private static void restartGame(Stage primaryStage, Stage dialog) {
+
+    private static void restartGame( Stage dialog) {
         Globals.gameObjects.clear();
         primaryStage.close();
         new Main().start(new Stage());
         dialog.close();
     }
 
+    public static void createScoreBar(Game game, int players) {
+        Label score = new Label();
+        int width = 200;
+        for (int i = 0; i < players; i++) {
+            Globals.players.get(i).setScore();
+            score.textProperty().bind(Globals.players.get(i).getScore());
+            score.setLayoutX(width);
+            score.setLayoutY(40);
+            score.setFont(new Font(24));
+            game.getChildren().add(score);
+            score = new Label();
+            width += 200;
+        }
+    }
 }
 
