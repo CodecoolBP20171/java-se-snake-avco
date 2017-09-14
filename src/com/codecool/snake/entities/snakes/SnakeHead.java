@@ -115,8 +115,9 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         return snakeHeadColor;
     }
 
-    public static void setSnakesAlive(int decrement) {
-        SnakeHead.snakesAlive -= decrement;
+    public static void decrSnakesAlive(int decrement) {
+        snakesAlive -= decrement;
+        System.out.println(snakesAlive);
     }
 
     public void step() {
@@ -188,14 +189,10 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
                 if (entity instanceof Interactable) {
                     Interactable interactable = (Interactable) entity;
                     interactable.apply(this);
-                    System.out.println(interactable.getMessage());
+//                    System.out.println(interactable.getMessage());
                 }
             }
         }
-    }
-
-    public HashSet<GameEntity> getSnakeParts() {
-        return null;
     }
 
     public void changeHealth(int diff) {
@@ -216,19 +213,19 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private void isGameOver() {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
-            snakesAlive--;
             gameOver();
         }
     }
 
     private void gameOver() {
-        if (snakesAlive == 0) {
-            Globals.players.remove(this);
+        if (Globals.players.size() == 1) {
             System.out.println("Game Over");
             Gui.gameOverWindow(Main.getPrimaryStage(), length - 4);
         } else {
+            Globals.scoreList.put(snakeHeadColor, length - 4);
             destroyAll(tail);
         }
+        Globals.players.remove(this);
     }
 
 

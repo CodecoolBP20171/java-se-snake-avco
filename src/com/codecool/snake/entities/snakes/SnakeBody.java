@@ -87,7 +87,6 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
             for (GameEntity pieceOfSnake: lastPart.getSnakeParts()) {
                 pieceOfSnake.destroy();
             }
-            SnakeHead.setSnakesAlive(-1);
         }
     }
 

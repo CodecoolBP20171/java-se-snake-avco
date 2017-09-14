@@ -6,9 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.image.Image;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
 
 // class for holding all static stuff
@@ -42,12 +40,14 @@ public class Globals {
     public static GameLoop gameLoop;
     public static List<SnakeHead> players;
     static int numOfEnemies;
+    public static HashMap<String, Integer> scoreList;
 
     static {
         gameObjects = new LinkedList<>();
         newGameObjects = new LinkedList<>();
         oldGameObjects = new LinkedList<>();
         players = new ArrayList<>();
+        scoreList = new HashMap<>();
     }
 
     public static void addGameObject(GameEntity toAdd) {

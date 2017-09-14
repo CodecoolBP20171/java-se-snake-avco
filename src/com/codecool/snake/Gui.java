@@ -91,7 +91,7 @@ public class Gui {
 
         Text text = new Text();
 
-        text.setText("GAME OVER!\n" + "Your score1: " + length);
+        text.setText("GAME OVER!\n" + "Your score: " + length);
         FlowPane pane = new FlowPane();
         pane.setAlignment(Pos.CENTER);
 
