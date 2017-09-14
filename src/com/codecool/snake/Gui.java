@@ -1,5 +1,7 @@
 package com.codecool.snake;
 
+import com.codecool.snake.entities.powerups.Powerup;
+import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -74,7 +76,7 @@ public class Gui {
         start.setAlignment(Pos.BOTTOM_CENTER);
         start.setPadding(new Insets(20));
         vBox.getChildren().addAll(playerNumberBox,start);
-        vBox.setStyle("-fx-background-color: deepskyblue;");
+        vBox.setStyle("-fx-background-color: lightblue;");
         buttons.put("startButton",startButton);
         buttons.put("leftButton",leftButton);
         buttons.put("rightButton",rightButton);
@@ -85,20 +87,15 @@ public class Gui {
         buttons.put("rightButton",rightButton);
         leftButton.setOnAction(event -> {
             if (numberOfPlayers -1 > -1){
-
                 numberOfPlayers = numberOfPlayers-1;
                 imageView.setImage(startPictures.get(numberOfPlayers));
-
             }
         });
 
         rightButton.setOnAction(event -> {
             if (numberOfPlayers + 1 < startPictures.size()){
-
                 numberOfPlayers = numberOfPlayers+1;
                 imageView.setImage(startPictures.get(numberOfPlayers));
-
-
             }
         });
 
@@ -113,7 +110,7 @@ public class Gui {
         Stage dialog = new Stage();
 
         VBox dialogVbox = new VBox(20);
-//        dialogVbox.setStyle("-fx-background-color:#fffa77;");
+        dialogVbox.setStyle("-fx-background-color:#fffa77;");
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
 
 
@@ -227,6 +224,13 @@ public class Gui {
         Globals.gameObjects.clear();
         primaryStage.close();
         new Main().start(new Stage());
+        Globals.players.clear();
+        SnakeHead.healthBar.clear();
+        SnakeHead.usedSnakeControl = 0;
+        SnakeHead.snakeHeadColor = new HashMap<>();
+        Gui.numberOfPlayers = 0;
+        Globals.SimpleEnemies.clear();
+        Powerup.setNumberOfPowerups(0);
         dialog.close();
     }
 

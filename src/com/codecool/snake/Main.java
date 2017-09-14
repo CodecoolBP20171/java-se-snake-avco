@@ -8,7 +8,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+        Main gameUI = new Main();
+
+        gameUI.launch(Main.class, args);
     }
 
     @Override
