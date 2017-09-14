@@ -23,19 +23,13 @@ public class Game extends Pane {
     }
 
     public void start() {
-        int counter = 200;
-        for (int i = 0; i < numberOfPlayers; i++) {
-            String name = "Player " + i;
-            Globals.players.add(new SnakeHead(this, counter, 500, KeyCode.A, KeyCode.D, KeyCode.W, "blue", name));
-            counter+=200;
-        }
-
+        SnakeHead.snakeSettings();
+        createSnakes(numberOfPlayers);
 
         Globals.SimpleEnemies.add(Globals.simpleEnemy);
         Globals.SimpleEnemies.add(Globals.simpleEnemy1);
         Globals.SimpleEnemies.add(Globals.simpleEnemy2);
         Globals.SimpleEnemies.add(Globals.simpleEnemy3);
-
 
         int numberOfPowerups = 1;
         for (int i = 0; i < numberOfPowerups ; i++) {
@@ -65,6 +59,22 @@ public class Game extends Pane {
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
     }
+
+    private void createSnakes(int numberOfSnakes) {
+        int x = 100;                                                        
+        int y = 100;
+        int z = 0;
+        for (int i = 0; i < numberOfSnakes; i++) {
+            switch (i){
+                case 0 : x = 100 ; y = 100; z = 180;break;
+                case 1 :  x = 1400; y = 100; z = 180;break;
+                case 2 :   x = 100; y = 700; z = 0; break;
+                case 3 :   x = 1400; y = 700; z = 0; break;
+            }
+            Globals.players.add(new SnakeHead(this, x, y,z, "Player" + (i + 1)));
+        }
+    }
+
     private void addProgressBar(){
         for (int i = 0; i < SnakeHead.healthBar.size(); i++) {
             ProgressBar progressBar = SnakeHead.healthBar.get(i);

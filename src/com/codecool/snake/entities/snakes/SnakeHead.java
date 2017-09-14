@@ -37,23 +37,33 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
     private boolean shoot = false;
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
-    private String snakeColor;
     public String name;
     private SimpleStringProperty score = new SimpleStringProperty();
     private ProgressBar progressBar = new ProgressBar(1);
     public static List<ProgressBar> healthBar = new ArrayList<>();
+    private List<String> snakeColor = new ArrayList<>();
+    public static List<ArrayList<KeyCode>> snakeControls = new ArrayList<>();
+    private static int usedSnakeControl = 0;
+    private KeyCode leftCode;
+    private KeyCode rightCode;
+    private KeyCode shootCode;
 
-    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode, String snakeColor, String name) {
+
+    public SnakeHead(Pane pane, int xc, int yc, int zc, String name) {
         super(pane);
         tail = this;
         this.name = name;
         health = 100;
         setX(xc);
         setY(yc);
-        this.snakeColor = snakeColor;
+        setRotate(zc);
         pane.getChildren().add(this);
         setImage(Globals.snakeHead);
-
+        ArrayList<KeyCode> snakeControl = this.snakeControls.get(usedSnakeControl);
+        usedSnakeControl++;
+        leftCode = snakeControl.get(0);
+        rightCode = snakeControl.get(1);
+        shootCode = snakeControl.get(2);
         initEventHandlers(pane, leftCode, rightCode, shootCode);
         snakesAlive++;
         String color = String.format("-fx-accent: %s", snakeColor);
@@ -63,6 +73,29 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
         );
         healthBar.add(this.progressBar);
         addPart(4);
+    }
+
+    public static void snakeSettings(){
+        ArrayList<KeyCode> keys = new ArrayList<>();
+        keys.add(KeyCode.LEFT);
+        keys.add(KeyCode.RIGHT);
+        keys.add(KeyCode.UP);
+        snakeControls.add(keys);
+        keys = new ArrayList<>();
+        keys.add(KeyCode.A);
+        keys.add(KeyCode.D);
+        keys.add(KeyCode.W);
+        snakeControls.add(keys);
+         keys = new ArrayList<>();
+        keys.add(KeyCode.F);
+        keys.add(KeyCode.H);
+        keys.add(KeyCode.T);
+        snakeControls.add(keys);
+        keys = new ArrayList<>();
+        keys.add(KeyCode.J);
+        keys.add(KeyCode.L);
+        keys.add(KeyCode.I);
+        snakeControls.add(keys);
     }
 
     public float getMaxSpeed() {
