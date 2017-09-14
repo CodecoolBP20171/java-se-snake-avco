@@ -25,8 +25,8 @@ public class Game extends Pane {
     public void start() {
         int counter = 200;
         for (int i = 0; i < numberOfPlayers; i++) {
-
-            Globals.players.add(new SnakeHead(this, counter, 500, KeyCode.A, KeyCode.D, KeyCode.W, "blue"));
+            String name = "Player " + i;
+            Globals.players.add(new SnakeHead(this, counter, 500, KeyCode.A, KeyCode.D, KeyCode.W, "blue", name));
             counter+=200;
         }
 
@@ -80,6 +80,6 @@ public class Game extends Pane {
 
 
     private void addScoreBard(){
-        Gui.createScoreBar(this);
+        Gui.createScoreBar(this, numberOfPlayers);
     }
 }

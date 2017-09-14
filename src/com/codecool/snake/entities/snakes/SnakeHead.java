@@ -38,13 +38,15 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
     private boolean leftKeyDown = false;
     private boolean rightKeyDown = false;
     private String snakeColor;
-    private SimpleStringProperty score = new SimpleStringProperty("Score: 0");
+    public String name;
+    private SimpleStringProperty score = new SimpleStringProperty();
     private ProgressBar progressBar = new ProgressBar(1);
     public static List<ProgressBar> healthBar = new ArrayList<>();
 
-    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode, String snakeColor) {
+    public SnakeHead(Pane pane, int xc, int yc, KeyCode leftCode, KeyCode rightCode, KeyCode shootCode, String snakeColor, String name) {
         super(pane);
         tail = this;
+        this.name = name;
         health = 100;
         setX(xc);
         setY(yc);
@@ -196,7 +198,7 @@ public class SnakeHead extends GameEntity implements Animatable,Interactable {
 
     public void setScore() {
         intScore++;
-        score.setValue("Score: " + Integer.toString(intScore));
+        score.setValue(name + ": " + Integer.toString(intScore));
     }
 
     public SimpleStringProperty getScore() {

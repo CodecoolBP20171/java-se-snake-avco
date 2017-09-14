@@ -20,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.objects.Global;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -199,21 +200,18 @@ public class Gui {
         Globals.clearGameObjects();
     }
 
-    public static void createScoreBar(Game game) {
+    public static void createScoreBar(Game game, int players) {
         Label score = new Label();
-        score.textProperty().bind(Globals.players.get(0).getScore());
-        score.setLayoutX(180);
-        score.setLayoutY(20);
-        score.setFont(new Font(24));
-        game.getChildren().add(score);
-
-        if (Globals.players.size() > 1) {
-            Label score2 = new Label();
-            score2.textProperty().bind(Globals.players.get(1).getScore());
-            score2.setLayoutX(Globals.WINDOW_WIDTH - 280);
-            score2.setLayoutY(20);
-            score2.setFont(new Font(24));
-            game.getChildren().add(score2);
+        int width = 200;
+        for (int i = 0; i < players; i++) {
+            Globals.players.get(i).setScore();
+            score.textProperty().bind(Globals.players.get(i).getScore());
+            score.setLayoutX(width);
+            score.setLayoutY(40);
+            score.setFont(new Font(24));
+            game.getChildren().add(score);
+            score = new Label();
+            width += 200;
         }
     }
 }
