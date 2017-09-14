@@ -72,7 +72,7 @@ public class Game extends Pane {
                 case 2 :   x = 100; y = 700; z = 0; break;
                 case 3 :   x = 1400; y = 700; z = 0; break;
             }
-            Globals.players.add(new SnakeHead(this, x, y,z, "Player" + (i + 1)));
+            Globals.players.add(new SnakeHead(this, x, y,z));
         }
     }
 

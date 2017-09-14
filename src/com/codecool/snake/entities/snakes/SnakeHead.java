@@ -25,11 +25,9 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private float speed = 2;
     private float maxSpeed = 4;
     private float turnRate = 2;
-    private static int snakesAlive;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int timer;
     private int health;
-    private int length;
     private int intScore;
     private double dir;
     private long lastShotTime;
@@ -51,7 +49,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private KeyCode rightCode;
     private KeyCode shootCode;
 
-    public SnakeHead(Pane pane, int xc, int yc, int zc, String name) {
+    public SnakeHead(Pane pane, int xc, int yc, int zc ) {
         super(pane);
         tail = this;
         health = 100;
@@ -68,7 +66,6 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         setImage(snakeHeadColor.get(color));
         usedSnakeControl++;
         initEventHandlers(pane, leftCode, rightCode, shootCode);
-        snakesAlive++;
         String snakeHeadColor = String.format("-fx-accent: %s", this.color);
         progressBar.setStyle("" +
                 "-fx-control-inner-background: white;" +
@@ -76,6 +73,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         );
         healthBar.add(this.progressBar);
         addPart(4);
+        this.name = color.toUpperCase();
     }
 
     public String getColor() {
@@ -199,7 +197,6 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         for (int i = 0; i < numParts; i++) {
             SnakeBody newPart = new SnakeBody(pane, tail);
             tail = newPart;
-            length++;
         }
     }
 

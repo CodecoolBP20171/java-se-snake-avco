@@ -1,7 +1,6 @@
 package com.codecool.snake;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,12 +19,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.objects.Global;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 public class Gui {
@@ -59,30 +56,29 @@ public class Gui {
         VBox vBox = new VBox();
         HBox playerNumberBox = new HBox(3);
         HBox start = new HBox(1);
-
-        //pane.setBackground(new Background(new BackgroundImage(startPictures.get(0),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         ImageView imageView = new ImageView();
+        playerNumberBox.setPadding(new Insets(20));
+        
         leftButton.setPrefSize(100,20);
         rightButton.setPrefSize(100,20);
         playerNumberBox.setAlignment(Pos.CENTER);
         playerNumberBox.getChildren().addAll(leftButton);
         playerNumberBox.getChildren().add(imageView);
         playerNumberBox.getChildren().addAll(rightButton);
-        playerNumberBox.setPadding(new Insets(20));
-        imageView.setFitWidth(200);
-        imageView.setFitHeight(200);
+        imageView.setFitWidth(250);
+        imageView.setFitHeight(250);
         imageView.setImage(startPictures.get(number));
-
+        playerNumberBox.setSpacing(30);
         start.setPrefSize(400,20);
         start.getChildren().add(startButton);
         start.setAlignment(Pos.BOTTOM_CENTER);
-        start.setPadding(new Insets(40));
+        start.setPadding(new Insets(20));
         vBox.getChildren().addAll(playerNumberBox,start);
-
+        vBox.setStyle("-fx-background-color: deepskyblue;");
         buttons.put("startButton",startButton);
         buttons.put("leftButton",leftButton);
         buttons.put("rightButton",rightButton);
-        Scene preScene = new Scene(vBox, 400 , 350);
+        Scene preScene = new Scene(vBox, 600 , 350);
         initialise.setScene(preScene);
 
         buttons.put("leftButton",leftButton);
