@@ -189,7 +189,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private void laserShoot(double dir) {
         // laser shot
         if (shoot && isReloaded()) {
-            new Laser(pane, getX(), getY(), dir);
+            new Laser(pane, getX(), getY(), dir, this);
             lastShotTime = System.currentTimeMillis();
             this.toFront();
         }

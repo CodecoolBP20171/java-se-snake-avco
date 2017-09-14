@@ -39,10 +39,10 @@ public class Gui {
     public static int numberOfPlayers = 0;
 
     public static void addStartPictures(){
-        startPictures.add( new Image("snake1green.png"));
-        startPictures.add(new Image("snake1red.png"));
-        startPictures.add( new Image("snake1green.png"));
-        startPictures.add(new Image("snake1red.png"));
+        startPictures.add( new Image("1player.png"));
+        startPictures.add(new Image("2player.png"));
+        startPictures.add( new Image("3player.png"));
+        startPictures.add(new Image("4player.png"));
     }
 
 
@@ -236,16 +236,18 @@ public class Gui {
 
     public static void createScoreBar(Game game, int players) {
         Label score = new Label();
-        int width = 200;
         for (int i = 0; i < players; i++) {
             Globals.players.get(i).setScore();
             score.textProperty().bind(Globals.players.get(i).getScore());
-            score.setLayoutX(width);
-            score.setLayoutY(40);
+            if (i == 0 || i == 2) { score.setLayoutX(50); }
+            if (i == 1 || i == 3) { score.setLayoutX(Globals.WINDOW_WIDTH - 150); }
+            if (i < 2) {
+                score.setLayoutY(40);
+            } else {score.setLayoutY(Globals.WINDOW_HEIGHT - 80);
+            }
             score.setFont(new Font(24));
             game.getChildren().add(score);
             score = new Label();
-            width += 200;
         }
     }
 }

@@ -4,17 +4,24 @@ import com.codecool.snake.Globals;
 import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
+import com.codecool.snake.entities.enemies.AdvancedEnemy;
+import com.codecool.snake.entities.enemies.NotSoSimpleEnemy;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
+import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
+
+import java.util.Random;
 
 public class Laser extends GameEntity implements Animatable {
 
     private static final float speed = 3;
     private Point2D heading;
+    private SnakeHead snake;
 
-    public Laser(Pane pane, double x, double y, double dir) {
+    public Laser(Pane pane, double x, double y, double dir, SnakeHead snake) {
         super(pane);
+        this.snake = snake;
         setX(x);
         setY(y);
         setRotate(dir);
@@ -35,7 +42,8 @@ public class Laser extends GameEntity implements Animatable {
             if (getBoundsInParent().intersects(entity.getBoundsInParent())) {
                 if (entity instanceof SimpleEnemy) {
                     Globals.setNumOfEnemies(-1);
-                    ((SimpleEnemy) entity).checkUnitNumbers();
+                    snake.setScore();
+                    spawnEnemy();
                     entity.destroy();
                     System.out.println("Good shot!");
                     destroy();
@@ -44,5 +52,12 @@ public class Laser extends GameEntity implements Animatable {
         }
         setX(getX() + heading.getX() * speed);
         setY(getY() + heading.getY() * speed);
+    }
+    private void spawnEnemy() {
+        Random rnd = new Random();
+        int choose = rnd.nextInt(3) + 1;
+        if (choose == 1) { new SimpleEnemy(pane); }
+        else if (choose == 2) { new NotSoSimpleEnemy(pane); }
+        else { new AdvancedEnemy(pane); }
     }
 }
