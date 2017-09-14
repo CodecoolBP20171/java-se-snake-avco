@@ -13,6 +13,11 @@ import java.util.*;
 public abstract class Powerup extends GameEntity implements Interactable {
 
     private Queue<Vec2d> history = new LinkedList<>();
+
+    public static void setNumberOfPowerups(int numberOfPowerups) {
+        Powerup.numberOfPowerups = numberOfPowerups;
+    }
+
     private static int numberOfPowerups;
     private int entitySize;
     protected Random rand = new Random();

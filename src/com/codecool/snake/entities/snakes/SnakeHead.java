@@ -21,8 +21,8 @@ import javafx.scene.layout.Pane;
 import java.util.*;
 
 public class SnakeHead extends GameEntity implements Animatable, Interactable {
-
     private float speed = 2;
+
     private float maxSpeed = 4;
     private float turnRate = 2;
     private GameEntity tail; // the last element. Needed to know where to add the next part.
@@ -44,14 +44,17 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     public static List<ProgressBar> healthBar = new ArrayList<>();
     public static List<ArrayList<KeyCode>> snakeControls = new ArrayList<>();
 
-    private static int usedSnakeControl = 0;
+    public static int usedSnakeControl = 0;
     private KeyCode leftCode;
     private KeyCode rightCode;
     private KeyCode shootCode;
+    public static boolean staticClear = false;
 
     public SnakeHead(Pane pane, int xc, int yc, int zc ) {
         super(pane);
         tail = this;
+        System.out.println(Globals.players.size());
+        staticClear = false;
         health = 100;
         setX(xc);
         setY(yc);
@@ -74,6 +77,14 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         healthBar.add(this.progressBar);
         addPart(4);
         this.name = color.toUpperCase();
+    }
+
+    public static void clearStatic(){
+        colors.clear();
+        snakeHeadColor.clear();
+        healthBar.clear();
+        snakeControls.clear();
+        usedSnakeControl = 0;
     }
 
     public String getColor() {
@@ -106,11 +117,11 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
         colors.add("green");
         colors.add("blue");
         colors.add("yellow");
-
         snakeHeadColor.put("red", new Image("snake_head_red.png"));
         snakeHeadColor.put("green", new Image("snake_head_green.png"));
         snakeHeadColor.put("blue", new Image("snake_head_blue.png"));
         snakeHeadColor.put("yellow", new Image("snake_head_yellow.png"));
+
     }
 
     public float getTurnRate() {
