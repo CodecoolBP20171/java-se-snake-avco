@@ -245,19 +245,17 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     private void isGameOver() {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
-            gameOver("normal");
+            if (Globals.players.size() == 1) {
+                gameOver();
+            } else {
+                destroyAll(tail);
+            }
         }
     }
 
-    private void gameOver(String endType) {
-        if (Globals.players.size() == 1 ||
-                (endType.equals("tie"))) {
+    private void gameOver() {
             System.out.println("Game Over");
             Gui.gameOverWindow();
-        } else {
-            destroyAll(tail);
-        }
-        Globals.players.remove(this);
     }
 
     private void destroyAll(GameEntity tail) {
@@ -271,6 +269,7 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
             Gui.explodeSnake(this);
             tail.destroy();
             System.out.println("The " + color + " snake is died");
+            Globals.players.remove(this);
         }
     }
 
@@ -323,12 +322,9 @@ public class SnakeHead extends GameEntity implements Animatable, Interactable {
     @Override
     public void apply(SnakeHead snakeHead) {
         if (!this.equals(snakeHead)) {
-            if (Globals.players.size() < 3) {
-                gameOver("tie");
-                System.out.println("Tie");
-            } else {
-                destroyAll(tail);
-                Globals.players.remove(this);
+            destroyAll(tail);
+            if (Globals.players.size() == 0) {
+                gameOver();
             }
         }
     }

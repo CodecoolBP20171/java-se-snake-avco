@@ -236,12 +236,14 @@ public class Gui {
     }
 
     private static void clearStaticVariables() {
-        Globals.gameObjects.clear();
         Globals.players.clear();
+        Globals.gameObjects.clear();
         Globals.SimpleEnemies.clear();
         Globals.scoreList.clear();
         SnakeHead.clearStatic();
         Gui.numberOfPlayers = 0;
+        Gui.buttons.clear();
+        Gui.startPictures.clear();
         Globals.clearNumberOfEnemies();
         Powerup.setNumberOfPowerups(0);
     }
