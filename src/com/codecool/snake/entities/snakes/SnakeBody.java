@@ -1,5 +1,6 @@
 package com.codecool.snake.entities.snakes;
 
+import com.codecool.snake.Gui;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
@@ -86,6 +87,7 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
             for (GameEntity pieceOfSnake: lastPart.getSnakeParts()) {
                 pieceOfSnake.destroy();
             }
+            Gui.explodeSnake(this);
         }
     }
 

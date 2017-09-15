@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 
 
 public class Game extends Pane {
+
     private int numberOfPlayers = 0;
 
     public Game(int numberOfPlayers) {
@@ -88,7 +89,6 @@ public class Game extends Pane {
             this.getChildren().add(progressBar);
         }
     }
-
 
     private void addScoreBard(){
         Gui.createScoreBar(this, numberOfPlayers);
