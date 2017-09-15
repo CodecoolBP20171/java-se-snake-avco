@@ -68,10 +68,10 @@ public class Game extends Pane {
         int z = 0;
         for (int i = 0; i < numberOfSnakes; i++) {
             switch (i){
-                case 0 :  x = 100; y = 100; z = 180; break;
-                case 1 :  x = 800; y = 100; z = 180; break;
-                case 2 :  x = 100; y = 500; z = 0; break;
-                case 3 :  x = 800; y = 500; z = 0; break;
+                case 0 : x = 100; y = 100; z = 180; break;
+                case 1 : x = 800; y = 100; z = 180; break;
+                case 2 : x = 100; y = 500; z = 0; break;
+                case 3 : x = 800; y = 500; z = 0; break;
             }
             Globals.players.add(new SnakeHead(this, x, y,z));
         }
@@ -81,10 +81,18 @@ public class Game extends Pane {
         for (int i = 0; i < SnakeHead.healthBar.size(); i++) {
             ProgressBar progressBar = SnakeHead.healthBar.get(i);
             switch (i){
-                case 0 :  progressBar.setLayoutX(50);progressBar.setLayoutY(20);break;
-                case 1 :  progressBar.setLayoutX(Globals.WINDOW_WIDTH-150);progressBar.setLayoutY(20);break;
-                case 2 :  progressBar.setLayoutX(50);progressBar.setLayoutY(Globals.WINDOW_HEIGHT-40);break;
-                case 3 :  progressBar.setLayoutX(Globals.WINDOW_WIDTH-150);progressBar.setLayoutY(Globals.WINDOW_HEIGHT-40);break;
+                case 0 :
+                    progressBar.setLayoutX(50);progressBar.setLayoutY(20);
+                    break;
+                case 1 :
+                    progressBar.setLayoutX(Globals.WINDOW_WIDTH-150);progressBar.setLayoutY(20);
+                    break;
+                case 2 :
+                    progressBar.setLayoutX(50);progressBar.setLayoutY(Globals.WINDOW_HEIGHT-40);
+                    break;
+                case 3 :
+                    progressBar.setLayoutX(Globals.WINDOW_WIDTH-150);progressBar.setLayoutY(Globals.WINDOW_HEIGHT-40);
+                    break;
             }
             this.getChildren().add(progressBar);
         }

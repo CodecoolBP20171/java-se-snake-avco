@@ -37,5 +37,4 @@ public class AdvancedEnemy extends SimpleEnemy {
             }
         }
     }
-
 }
