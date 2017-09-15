@@ -8,7 +8,6 @@ import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
-
 import java.util.Random;
 
 // a simple enemy TODO make better ones.
@@ -20,7 +19,6 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     protected Random rnd = new Random();
     protected int charSize;
     protected int speed;
-
 
     public SimpleEnemy(Pane pane) {
         super(pane);
@@ -38,7 +36,7 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
             double yPos = (double) rnd.nextInt((int) (Globals.WINDOW_HEIGHT - charSize) - charSize + 1) + charSize;
             setX(xPos);
             setY(yPos);
-            for (SnakeHead player: Globals.players) {
+            for (SnakeHead player : Globals.players) {
                 if (getBoundsInParent().intersects(player.getBoundsInParent())) {
                     break;
                 }

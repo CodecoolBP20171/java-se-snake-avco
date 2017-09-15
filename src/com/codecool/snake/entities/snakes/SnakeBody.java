@@ -1,5 +1,6 @@
 package com.codecool.snake.entities.snakes;
 
+import com.codecool.snake.Gui;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
@@ -8,6 +9,7 @@ import com.sun.javafx.geom.Vec2d;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+
 import java.util.*;
 
 public class SnakeBody extends GameEntity implements Animatable, Interactable {
@@ -17,7 +19,7 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
     private static final int historySize = 10;
     private Image bodyImage;
     private List<GameEntity> snakeParts = new ArrayList<>();
-    private static HashMap<String,Image> bodyColors = new HashMap<>();
+    private static HashMap<String, Image> bodyColors = new HashMap<>();
 
     public SnakeBody(Pane pane, GameEntity parent) {
         super(pane);
@@ -45,11 +47,12 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
             history.add(new Vec2d(xc, yc));
         }
     }
-    public static void setSnakeBodySetup(){
-        bodyColors.put("red",new Image("snake_body_red.png"));
-        bodyColors.put("green",new Image("snake_body_green.png"));
-        bodyColors.put("blue",new Image("snake_body_blue.png"));
-        bodyColors.put("yellow",new Image("snake_body_yellow.png"));
+
+    public static void setSnakeBodySetup() {
+        bodyColors.put("red", new Image("snake_body_red.png"));
+        bodyColors.put("green", new Image("snake_body_green.png"));
+        bodyColors.put("blue", new Image("snake_body_blue.png"));
+        bodyColors.put("yellow", new Image("snake_body_yellow.png"));
     }
 
     private void setBodyColor(GameEntity parent) {
@@ -83,9 +86,10 @@ public class SnakeBody extends GameEntity implements Animatable, Interactable {
         if (!headOfThisBody.equals(snakeHead)) {
             SnakeBody lastPart = (SnakeBody) snakeHead.getTail();
             Globals.players.remove(snakeHead);
-            for (GameEntity pieceOfSnake: lastPart.getSnakeParts()) {
+            for (GameEntity pieceOfSnake : lastPart.getSnakeParts()) {
                 pieceOfSnake.destroy();
             }
+            Gui.explodeSnake(this);
         }
     }
 

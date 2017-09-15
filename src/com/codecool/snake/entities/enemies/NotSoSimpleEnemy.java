@@ -20,5 +20,4 @@ public class NotSoSimpleEnemy extends SimpleEnemy {
         setY(getY() + heading.getY());
         checkUnitNumbers();
     }
-
 }
